@@ -1,0 +1,7 @@
+.metadata/
+Servers/
+.settings/
+build/
+.classpath
+.project
+.term-project

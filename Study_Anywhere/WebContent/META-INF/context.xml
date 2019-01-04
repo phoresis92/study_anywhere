@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context >
+<!-- 	<Resource name="jdbc/OracleDB"
+	auth="Container"
+	type="javax.sql.DataSource"
+	username="java"
+	password="java"
+	driverClassName="oracle.jdbc.driver.OracleDriver"
+	factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+	url="jdbc:oracle:thin:@127.0.0.1:1521:XE"
+	maxActive="500"
+	maxIdle="100" /> -->
+	
+	
+	
+<Resource name="jdbc/mysql" 
+auth="Container" 
+type="javax.sql.DataSource"
+username="root" 
+password="1234" 
+factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+driverClassName="com.mysql.cj.jdbc.Driver"
+logAbandoned="true" 
+maxActive="30" 
+maxIdle="30" 
+maxWait="200"
+url="jdbc:mysql://localhost:3306/study_anywhere?serverTimezone=UTC&amp;verifyServerCertificate=false&amp;useSSL=false" />
+
+
+
+	  	<!-- 
+		1. name : JNDI로 호출될 이름을 설정한다. (접근 -> java:comp/env/jdbc/myconn)
+  		2. auth : DBCP를 관리할 관리자 (Container or Application)
+  		3. type : 해당 resource의 return type 
+  		   (DataSource는 Connection 객체를 반환할 수 있다.)
+  		4. factory : dbcp를 유용하는 관리 클래스 (Tomcat 5.x에 기본으로 존재하는 클래스)
+  		   (직접 DBCP 클래스를 지정해도 동작하는데 문제가 없다.)
+  		   (그러나, Factory 클래스를 이용하면 좀더 안정적으로 관리할 수 있다.)
+  		5. driverClassName : JDBC를 이용하기 위한 드라이버 클래스
+  		6. url : DB의 접속 URL (속성으로 자동 재 접속을 선택했다.)
+  		7. username : DB의 계정 명
+  		8. password : 계정에 대한 비밀번호
+  		9. maxActive : 최대 접속 허용 개수
+  		10. maxIdle : DB Pool에 여분으로 남겨질 최대 Connection 개수
+  		11. maxWait : DB 연결이 반환되는 Timeout의 최대 시간 (-1은 무한 대기)
+  		12. removeAbandoned : Connection이 잘못 관리되어 버려진 연결을 찾아 재활용할 것인지의 여부 설정
+  		    (true 설정일 때 현재 DB 연결이 적으면 버려진 연결을 찾아 재활용)
+  		13. removeAbandonedTimeout : 버려진 연결로 인식할 기본 시간 설정
+  		    (초 단위로 해당 시간이 지나면 버려진 연결로 인식한다.)
+	  	-->	  	
+
+</Context>
