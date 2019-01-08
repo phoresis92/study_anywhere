@@ -8,6 +8,13 @@
 	driverClassName="oracle.jdbc.driver.OracleDriver"
 	factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
 	url="jdbc:oracle:thin:@127.0.0.1:1521:XE"
+	
+	validationQuery="select 1 from dual";
+	validationInterval="30000"
+	timeBetweenEvictionRunsMillis="30000"
+	
+	minIdle="10"
+	maxWait="10000"
 	maxActive="500"
 	maxIdle="100" /> -->
 	
