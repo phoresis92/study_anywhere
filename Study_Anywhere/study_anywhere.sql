@@ -11,11 +11,12 @@ CREATE TABLE MEMBER(
 );
 
 create table room(
-    room_name varchar(30) not null,
-	room_pass varchar(30) not null,
-	user_id varchar(20) not null,
+    roomname varchar(30) not null,
+	roompass varchar(30) not null,
+	userid varchar(20) not null,
+	roomcurp int default 0,
     indata TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    primary key(room_name)
+    primary key(roomname)
 );
 
 

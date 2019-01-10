@@ -55,4 +55,17 @@ public class MemberModifyService {
 		return modifyResult;
 	}
 	
+	
+	/** temppass 체크 */
+	public boolean tempPassCheck(String temppass, String memberID) {
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		Connection con = getConnection();
+		memberDAO.setConnection(con);
+		
+		boolean result = memberDAO.tempPassCheck(temppass, memberID);
+		
+		close(con);
+		return result;
+	}
+	
 }

@@ -38,7 +38,7 @@ public class MemberFindPassAction implements Action {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('아이디를 입력 해주세요.');");
-			script.println("location.href = 'index.jsp';");
+			script.println("location.href = 'index.html';");
 			script.println("</script>");
 			script.close();
 		}
@@ -57,13 +57,13 @@ public class MemberFindPassAction implements Action {
 			// 이메일 전송
 			EmailAuthService eas = new EmailAuthService();
 
-			String host = "http://127.0.0.1:80/InfantCareCenter/";
+			String host = "http://127.0.0.1:80/Study_Anywhere/";
 			String from = "phoresis92@gmail.com";
 			String to = eas.getUserEmail(memberID); // 유저의 가입 이메일 가져오기.
 
 			System.out.println("EmailAuthAction 에서 얻어온 이메일의 값 : " + to);
 
-			String subject = "육아지원센터 회원 임시 비밀번호 이메일 입니다.";
+			String subject = "Study Anywhere 회원 임시 비밀번호 이메일 입니다.";
 			String content = "다음 사용자에 대한 비밀번호 초기화 요청입니다.<br/><br/>" + "사용자 아이디 : " + memberID + "<br/>"
 					+ "사용자 임시 비밀번호 : " + tempPass + "<br/><br/>" + "다음 링크에 접속하여 인증을 진행하세요." + "<a href='" + host
 					+ "memberInitPass.do?memberID=" + memberID + "&tempPass=" + tempPass + "'>비밀번호 초기화</a>";

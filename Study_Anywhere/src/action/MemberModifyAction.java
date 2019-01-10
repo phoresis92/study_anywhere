@@ -43,7 +43,7 @@ public class MemberModifyAction implements Action {
 		} else {
 			out.println("<script>");
 			out.println("alert('정보가 수정되지 않았습니다.');");
-			out.println("location.href='myPage.jsp';");
+			out.println("location.href='myPage.html';");
 			out.println("</script>");
 			out.close();
 		}

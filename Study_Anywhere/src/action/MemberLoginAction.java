@@ -99,6 +99,7 @@ public class MemberLoginAction implements Action {
 		if (loginInfo.getMEMBER_SETTEMP() == 1) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginInfo", loginInfo);
+			session.setAttribute("memberID", loginInfo.getMEMBER_ID());
 			af = new ActionForward();
 			af.setPath("./changeFromTemp.jsp");
 			af.setRedirect(true);

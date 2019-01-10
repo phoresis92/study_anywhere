@@ -29,11 +29,11 @@ public class MemberLogoutAction implements Action {
 			// 성공 했으면 다시 메인 페이지로
 			af = new ActionForward();
 			af.setRedirect(true);
-			af.setPath("./index.jsp");
+			af.setPath("./index.html");
 		} else {
 			out.println("<script>");
 			out.println("alert('로그인하지 않았습니다.');");
-			out.println("location.href='./index.jsp';");
+			out.println("location.href='./index.html';");
 			out.println("</script>");
 		}
 		

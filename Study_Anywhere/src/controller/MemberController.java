@@ -18,9 +18,9 @@ import action.MemberJoinAction;
 import action.MemberLoginAction;
 import action.MemberLogoutAction;
 import action.MemberModifyAction;
-
 import ajax.Ajax;
 import ajax.IdOverlapCheckAjax;
+import ajax.tempPassCheckAjax;
 import bean.ActionForward;
 
 @WebServlet("*.do")
@@ -77,6 +77,15 @@ public class MemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			// 임시 비밀번호 체크 ajax
+		} else if (command.equals("/tempPassCheck.do")) {
+			ajax = new tempPassCheckAjax();
+			try {
+				responseText = ajax.getJSON(request, response); // JSON
+				response.getWriter().write(responseText);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			// 회원 가입 시, 이메일 인증 보내기
 		} else if (command.equals("/emailAuthAction.do")) {
 			action = new EmailAuthAction();
@@ -125,7 +134,7 @@ public class MemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// 회원정보 변경_마이페이지
+			// 임시비밀번호 입력후 본인 비밀번호로 변경
 		}  else if (command.equals("/memberInfoRivision.do")) {
 			action = new MemberModifyAction();
 			try {

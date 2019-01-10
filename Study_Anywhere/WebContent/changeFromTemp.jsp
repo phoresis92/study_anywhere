@@ -72,7 +72,7 @@
 						</div>
 						<div class="col-sm-9">
 							<input class="form-control" name="currentPassword" type="text"
-								placeholder="현재 비밀번호를 입력해 주세요." id="tempPass"/>
+								placeholder="임시 비밀번호를 입력해 주세요." id="tempPass"/>
 						</div>
 					</div>
 					<div class="row mb-3">
@@ -80,7 +80,7 @@
 							<label><h5>바꿀 비밀번호</h5></label>
 						</div>
 						<div class="col-sm-9">
-							<input class="form-control" id="pass11" name="changePassword" type="text" onkeyup="passchk()"
+							<input class="form-control" id="pass11" name="changePassword" type="password" onkeyup="passchk()"
 								placeholder="바꿀 비밀번호를 입력해 주세요." />
 						</div>
 					</div>
@@ -89,7 +89,7 @@
 							<label><h5>비밀번호 확인</h5></label>
 						</div>
 						<div class="col-sm-9">
-							<input class="form-control" id="pass22" type="text" onkeyup="passchk()"
+							<input class="form-control" id="pass22" type="password" onkeyup="passchk()"
 								placeholder="바꿀 비밀번호를 한번 더 입력해 주세요." />
 						</div>
 					</div>
@@ -139,12 +139,35 @@
 	    }
 	}
 	
+	var memberID = "<%= session.getAttribute("memberID") %>";
+	
+	
 	function changepass(){
 		if(passConfirm == 0){
 			alert("비밀번호값이 일치하지 않습니다")
 			return false;
 		}
-		chgPass.submit();
+		var temppass = $('#tempPass').val();
+		console.log('temppass: '+temppass);
+		
+		$.ajax({
+			type : 'POST',
+			url : "./tempPassCheck.do",
+			data : {"temppass": temppass,
+					"memberID": memberID},
+			success : function(result){
+				console.log(result);
+				var out = JSON.parse(result);
+				if(out.result == "yes"){
+					chgPass.submit();
+				}else{
+					alert('임시비밀번호가 일치하지 않습니다.');
+					return;
+				}
+				
+			}
+		})
+		
 	}
 	
     	

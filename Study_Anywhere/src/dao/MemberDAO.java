@@ -33,6 +33,7 @@ public class MemberDAO {
 		this.con = con;
 	}
 	
+	
 	public int joinMember(MemberBean mb) {
 		//String sql = "INSERT INTO MEMBER (MEMBER_ID, MEMBER_PW, MEMBER_EMAIL, MEMBER_DATE) VALUES(?,?,?, SYSDATE)";
 		String sql = "INSERT INTO MEMBER (MEMBER_ID, MEMBER_PW, MEMBER_EMAIL) VALUES(?,?,?)";
@@ -64,7 +65,6 @@ public class MemberDAO {
 		return result;
 	}
 
-	
 	/** 이메일 인증 완료 검증 메소드 */
 	public boolean getUserEmailChecked(String memberID) {
 		String sql = "SELECT MEMBER_CHECKED FROM MEMBER WHERE MEMBER_ID = ?";
@@ -249,21 +249,23 @@ public class MemberDAO {
 		return result;
 	}
 
+	
 	public int modifyMember(String memberID, String tempPass) {
 		String sql1 = "UPDATE MEMBER SET MEMBER_SETTEMP = 1 WHERE MEMBER_ID = ?";
 		String sql2 = "UPDATE MEMBER SET MEMBER_PW = ? WHERE MEMBER_ID = ?";
-		int result = 0;
+		int result1 = 0;
+		int result2 = 0;
 		try {
 			pstmt = con.prepareStatement(sql1);
 			pstmt.setString(1, memberID);
-			rs = pstmt.executeQuery();
+			result1 = pstmt.executeUpdate();
 
-			if(rs.next()) {
+			if(result1 == 1) {
 					System.out.println("수정 단계");
 					pstmt = con.prepareStatement(sql2);
 					pstmt.setString(1, tempPass);
 					pstmt.setString(2, memberID);
-					result = pstmt.executeUpdate();
+					result2 = pstmt.executeUpdate();
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -276,7 +278,7 @@ public class MemberDAO {
 			}
 			
 		}
-		return result;
+		return result2;
 	}
 	
 	/** 마이페이지에서 정보 변경시 사용하는 메소드 */
@@ -314,4 +316,35 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	
+	public boolean tempPassCheck(String temppass, String memberID) {
+		
+		String sql = "SELECT MEMBER_TEMPPASS FROM MEMBER WHERE MEMBER_ID = ?";
+		boolean result = false;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, memberID);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				if(rs.getString(1).equals(temppass)) {
+					System.out.println("rs.getString: "+rs.getString(1));
+					result = true;
+				}
+				System.out.println(result);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				close(pstmt);
+				close(rs);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	
 }
