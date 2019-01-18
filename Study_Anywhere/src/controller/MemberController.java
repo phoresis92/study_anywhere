@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.BoardListAction;
+import action.CalendarAction;
 import action.EmailAuthAction;
 import action.EmailCheckedAction;
 import action.MemberFindPassAction;
@@ -59,7 +61,7 @@ public class MemberController extends HttpServlet {
 		ActionForward forward = null;
 		String responseText = null;
 
-		
+		//===============================================================================
 			// 회원가입_상단 바 
 		if (command.equals("/memberJoin.do")) {
 			action = new MemberJoinAction();
@@ -142,11 +144,37 @@ public class MemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			//===========================================================================
+			// 게시판
+		} else if (command.equals("/boardList.do")) {
+			action = new BoardListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 게시물 조회
+		}else if (command.equals("/boardRead.do")) {
+			//action = new BoardReadAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 달력 =======================================================================
+		}else if(command.equals("/calendar.do")) {
+			action = new CalendarAction();
+			try {
+				forward = action.execute(request, response);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		/** 2. ActionForward 인스턴스에 따른 forwarding */
 		if (forward != null) {
 			if (forward.isRedirect()) {
+				System.out.println(forward.isRedirect());
 				response.sendRedirect(forward.getPath());
 			} else {
 				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());

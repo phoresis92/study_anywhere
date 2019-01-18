@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,11 +76,60 @@
 					<p class="text-muted mb-5">Start Bootstrap can help you build
 						better websites using the Bootstrap CSS framework! Just download
 						your template and start going, no strings attached!</p>
+<%-- 						<% String mem_ID = "${session.mem_ID}";  %>						
+<% if(mem_ID == null || mem_ID.equals("")){ %>
+<h1>${session.mem_ID}</h1>
 					<a class="btn btn-light btn-xl sr-button" data-toggle="modal"
 						data-target="#loginForm">SignIn</a> <a
 						class="btn btn-dark btn-xl sr-button text-white" data-toggle="modal"
 						data-target="#joinForm">SignUp</a>
+						<% }else{ %>
+						<h1>${session.mem_ID}</h1>
+						<h1><%=mem_ID%></h1>
+											<a class="btn btn-light btn-xl sr-button" href="http://localhost/Study_Anywhere/myPage.jsp">MyPage</a> <a
+						class="btn btn-dark btn-xl sr-button text-white" href="http://localhost:3000/lobby/logout">Logout</a>
+						<% } %> --%>
+						
+						<c:choose>
+        	<c:when test="${empty loginInfo.getMEMBER_ID()}">
+        		<div class="btn-group">
+		       		<button class="btn btn-outline-primary" data-toggle="modal" data-target="#loginForm">
+						로그인
+					</button>
+		       		<button class="btn btn-outline-primary" data-toggle="modal" data-target="#joinForm">
+						회원가입
+		       		</button>
+        		</div>
+        	</c:when>
+			
+			<c:when test="${loginInfo.getMEMBER_ID().equals('admin')}">
+        		<div class="btn-group">
+		       		 <button class="btn btn-outline-info" onclick="location.href='./boardSuspendList.kly'">
+	        	    	관리자 모드
+	        	    </button>
+	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.kly'">
+	        	    	로그아웃
+	        	    </button>
+        		</div>
+        	</c:when>
+        	
+        	<c:otherwise>
+	        	<div class="btn-group">
+	        	    <button class="btn btn-outline-primary" onclick="location.href='./memberDetail.do'">
+	        	    	마이페이지
+	        	    </button>
+	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.do'">
+	        	    	로그아웃
+	        	    </button>
+	        	</div>
+        	</c:otherwise>
+        </c:choose>
+						
 				</div>
+				<!--  -->
+				<button onclick="location='boardList.do?page=1'">boardTest</button>
+				<button onclick="location='calendar.do'">calendar</button>
+				<!--  -->
 			</div>
 		</div>
 	</header>
@@ -93,7 +145,7 @@
 						need to get your new website up and running in no time! All of the
 						templates and themes on Start Bootstrap are open source, free to
 						download, and easy to use. No strings attached!</p>
-					<a class="btn btn-light btn-xl js-scroll-trigger sr-button" href="#services">Get
+					<a class="btn btn-light btn-xl js-scroll-trigger sr-button" href="http://localhost:3000/">Get
 						Started!</a>
 				</div>
 			</div>
