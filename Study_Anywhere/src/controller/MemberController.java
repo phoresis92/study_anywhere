@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.BoardListAction;
-import action.CalendarAction;
 import action.EmailAuthAction;
 import action.EmailCheckedAction;
 import action.MemberFindPassAction;
@@ -20,8 +19,12 @@ import action.MemberJoinAction;
 import action.MemberLoginAction;
 import action.MemberLogoutAction;
 import action.MemberModifyAction;
+import ajax.AddEventAjax;
 import ajax.Ajax;
+import ajax.GetAllEventAjax;
 import ajax.IdOverlapCheckAjax;
+import ajax.ModifyEventAjax;
+import ajax.RemoveEventAjax;
 import ajax.tempPassCheckAjax;
 import bean.ActionForward;
 
@@ -162,11 +165,36 @@ public class MemberController extends HttpServlet {
 				e.printStackTrace();
 			}
 			// 달력 =======================================================================
-		}else if(command.equals("/calendar.do")) {
-			action = new CalendarAction();
+		}else if(command.equals("/addEvent.do")) {
+			ajax = new AddEventAjax();
 			try {
-				forward = action.execute(request, response);
-			}catch (Exception e) {
+				responseText = ajax.getJSON(request, response); // JSON
+				response.getWriter().write(responseText);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/removeEvent.do")) {
+			ajax = new RemoveEventAjax();
+			try {
+				responseText = ajax.getJSON(request, response); // JSON
+				response.getWriter().write(responseText);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/modifyEvent.do")) {
+			ajax = new ModifyEventAjax();
+			try {
+				responseText = ajax.getJSON(request, response); // JSON
+				response.getWriter().write(responseText);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/getAllEvent.do")) {
+			ajax = new GetAllEventAjax();
+			try {
+				responseText = ajax.getJSON(request, response); // JSON
+				response.getWriter().write(responseText);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
