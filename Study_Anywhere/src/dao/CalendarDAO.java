@@ -38,15 +38,17 @@ public class CalendarDAO {
 	}
 	
 	
-	public int addEvent(String title, String start, String end) {
-		String sql = "insert into calendar(roomname, member_id, caldate1, caldate2, calevent, calcode) values ('lobby','qwer', ? , ? , ?, 2);";
+	public int addEvent(String title, String start, String end, String roomname, String username) {
+		String sql = "insert into calendar(roomname, member_id, caldate1, caldate2, calevent, calcode) values (?,?, ? , ? , ?, 2);";
 		int result = 0;
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, start);
-			pstmt.setString(2, end);
-			pstmt.setString(3, title);
+			pstmt.setString(1, roomname);
+			pstmt.setString(2, username);
+			pstmt.setString(3, start);
+			pstmt.setString(4, end);
+			pstmt.setString(5, title);
 			
 			result = pstmt.executeUpdate();
 			
@@ -144,15 +146,15 @@ public class CalendarDAO {
 		return result;
 	}
 	
-	public JSONArray getAllEvent() {
-		String sql = "select calnum, caldate1, caldate2, calevent from calendar;";
+	public JSONArray getAllEvent(String roomname) {
+		String sql = "select calnum, caldate1, caldate2, calevent, member_id from calendar where roomname = ?;";
 		int result = 0;
 		
 		JSONArray jarr = new JSONArray();
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			
+			pstmt.setString(1, roomname);
 			rs = pstmt.executeQuery();
 
 			while(rs.next()) {
@@ -161,6 +163,7 @@ public class CalendarDAO {
 				data.put("start", rs.getString(2));
 				data.put("end", rs.getString(3));
 				data.put("title", rs.getString(4));
+				data.put("username", rs.getString(5));
 				jarr.add(data);
 			}
 			

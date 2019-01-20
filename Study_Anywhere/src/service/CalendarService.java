@@ -12,13 +12,13 @@ import dao.CalendarDAO;
 public class CalendarService {
 	
 	
-	public int addEvent(String title,String start, String end) {
+	public int addEvent(String title,String start, String end, String roomname, String username) {
 
 		CalendarDAO calendarDAO = CalendarDAO.getInstance();
 		Connection con = getConnection();
 		calendarDAO.setConnection(con);
 		
-		int result = calendarDAO.addEvent(title,start,end);
+		int result = calendarDAO.addEvent(title,start,end,roomname,username);
 		
 		
 		close(con);
@@ -64,13 +64,13 @@ public class CalendarService {
 		return flag;
 	}
 	
-	public JSONArray getAllEvent() {
+	public JSONArray getAllEvent(String roomname) {
 
 		CalendarDAO calendarDAO = CalendarDAO.getInstance();
 		Connection con = getConnection();
 		calendarDAO.setConnection(con);
 		
-		JSONArray result = calendarDAO.getAllEvent();
+		JSONArray result = calendarDAO.getAllEvent(roomname);
 		
 		
 		

@@ -19,6 +19,7 @@ import action.MemberJoinAction;
 import action.MemberLoginAction;
 import action.MemberLogoutAction;
 import action.MemberModifyAction;
+import action.ShowCalendarAction;
 import ajax.AddEventAjax;
 import ajax.Ajax;
 import ajax.GetAllEventAjax;
@@ -197,6 +198,14 @@ public class MemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else if (command.equals("/showCalendar.do")) {
+			action = new ShowCalendarAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 게시물 조회
 		}
 
 		/** 2. ActionForward 인스턴스에 따른 forwarding */

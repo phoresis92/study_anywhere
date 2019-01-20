@@ -24,15 +24,19 @@ public class AddEventAjax implements Ajax {
 		String title = (String) jobj.get("title");
 		String start = (String) jobj.get("start");
 		String end = (String) jobj.get("end");
+		String roomname = (String) jobj.get("roomname");
+		String username = (String) jobj.get("username");
 		
 		
 		System.out.println(title);
 		System.out.println(start);
 		System.out.println(end);
+		System.out.println(roomname);
+		System.out.println(username);
 		
 
 		CalendarService cv = new CalendarService();
-		int result = cv.addEvent(title,start,end);
+		int result = cv.addEvent(title,start,end, roomname,username);
 		
 		
 		return result+"";

@@ -128,7 +128,7 @@
 				</div>
 				<!--  -->
 				<button onclick="location='boardList.do?page=1'">boardTest</button>
-				<button onclick="location='/Study_Anywhere/fullcalendar.html'">calendar</button>
+				<button onclick="location='/Study_Anywhere/calendar.jsp'">calendar</button>
 				<!--  -->
 			</div>
 		</div>
