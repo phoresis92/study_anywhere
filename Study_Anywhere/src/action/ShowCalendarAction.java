@@ -2,8 +2,10 @@ package action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.ActionForward;
+import service.CalendarService;
 
 public class ShowCalendarAction implements Action {
 
@@ -16,9 +18,15 @@ public class ShowCalendarAction implements Action {
 		ActionForward af = null;
 		
 		
-		String username = request.getParameter("username");
-		String roomname = request.getParameter("roomname");
+		HttpSession session = request.getSession();
 		
+		String username = (String)session.getAttribute("memberID");
+		
+		CalendarService cs = new CalendarService();
+		String roomname = cs.getRoomname(username);
+		
+		System.out.println("username: "+ username);
+		System.out.println("roomname: "+ roomname);
 		
 		request.setAttribute("username", username);
 		request.setAttribute("roomname", roomname);

@@ -118,6 +118,7 @@ public class MemberLoginAction implements Action {
 			HttpSession session = request.getSession();
 			// 세션에 로그인 정보 저장
 			session.setAttribute("loginInfo", loginInfo);
+			session.setAttribute("memberID", loginInfo.getMEMBER_ID());
 			
 			SHAHash256 hash = new SHAHash256();
 			

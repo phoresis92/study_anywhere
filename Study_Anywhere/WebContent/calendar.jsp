@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -7,6 +8,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <META HTTP-EQUIV="refresh" CONTENT="60"> -->
   <title>Document</title>
 </head>
 
@@ -21,12 +23,13 @@
 
 <script type="text/javascript">
 
-var roomname = '${requestScope.roomname}';
-var username = '${requestScope.username}';
+var roomname = '${roomname}';
+var username = '${username}';
 console.log(roomname);
 console.log(username);
 
-var events_array = [];
+
+events_array = [];
 
 
 //getAll =================================
@@ -65,9 +68,6 @@ $.ajax({
 			
 		}
 		
-			console.log(events_array);
-    }
-  });
 
 
   // Create calendar when document is ready
@@ -308,9 +308,14 @@ $.ajax({
         events: events_array
       } //End of options
     );
-  });
+  });//$ready
 
+	console.log(events_array);
+    }
+    
+  });//ajax end
 
+  
 </script>
 
 <style media="screen">

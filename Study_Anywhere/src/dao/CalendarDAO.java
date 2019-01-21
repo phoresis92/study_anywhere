@@ -70,7 +70,7 @@ public class CalendarDAO {
 						
 		} catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("MemberDAO에서의 에러 메세지"+e.getMessage());
+			System.out.println("CalendarDAO에서의 에러 메세지"+e.getMessage());
 		} finally {
 			try {
 				close(pstmt);
@@ -101,7 +101,7 @@ public class CalendarDAO {
 		
 		} catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("MemberDAO에서의 에러 메세지"+e.getMessage());
+			System.out.println("CalendarDAO에서의 에러 메세지"+e.getMessage());
 		} finally {
 			try {
 				close(pstmt);
@@ -135,7 +135,7 @@ public class CalendarDAO {
 		
 		} catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("MemberDAO에서의 에러 메세지"+e.getMessage());
+			System.out.println("CalendarDAO에서의 에러 메세지"+e.getMessage());
 		} finally {
 			try {
 				close(pstmt);
@@ -171,7 +171,7 @@ public class CalendarDAO {
 		
 		} catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("MemberDAO에서의 에러 메세지"+e.getMessage());
+			System.out.println("CalendarDAO에서의 에러 메세지"+e.getMessage());
 		} finally {
 			try {
 				close(pstmt);
@@ -180,6 +180,33 @@ public class CalendarDAO {
 			}
 		}
 		return jarr;
+	}
+	
+	public String getRoomname(String username) {
+		String sql = "select roomname from chatlist where member_id = ? ;";
+		String result = "";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, username);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getString("roomname");
+			}
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("CalendarDAO에서의 에러 메세지"+e.getMessage());
+		} finally {
+			try {
+				close(pstmt);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
 	}
 	
 
