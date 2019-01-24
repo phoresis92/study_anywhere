@@ -2,6 +2,7 @@ package ajax;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 
@@ -16,12 +17,33 @@ public class GetAllEventAjax implements Ajax {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		String roomname = request.getParameter("roomname");
+		CalendarService cs = new CalendarService();		
+		String roomname = null;
 		
-		CalendarService cv = new CalendarService();
-		JSONArray result = cv.getAllEvent(roomname);
+		if(request.getParameter("roomname") != null) {
+			
+			roomname = request.getParameter("roomname");
+
+
+			JSONArray result = cs.getAllEvent(roomname);
+			
+			return result.toString();
+		}else {
+			
+			HttpSession session = request.getSession();
+			String username = (String) session.getAttribute("memberID");
+			
+			String[] arr = cs.getRoomname(username);
+			
+			JSONArray result = cs.getAllEvent(arr[0]);
+			
+			return result.toString();
+		}
 		
-		return result.toString();
+
+		
+		
+
 	}
 
 	

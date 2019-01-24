@@ -79,13 +79,13 @@ public class CalendarService {
 		return result;
 	}
 	
-	public String getRoomname(String username) {
+	public String[] getRoomname(String username) {
 
 		CalendarDAO calendarDAO = CalendarDAO.getInstance();
 		Connection con = getConnection();
 		calendarDAO.setConnection(con);
 		
-		String result = calendarDAO.getRoomname(username);
+		String[] result = calendarDAO.getRoomname(username);
 		
 		
 		

@@ -9,7 +9,7 @@
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- <META HTTP-EQUIV="refresh" CONTENT="60"> -->
-  <title>Document</title>
+  <title>Calendar</title>
 </head>
 
 <link rel='stylesheet' href='./fullcalendar/fullcalendar.css' />
@@ -25,11 +25,12 @@
 
 var roomname = '${roomname}';
 var username = '${username}';
+var chief = '${chief}';
 console.log(roomname);
 console.log(username);
 
 
-events_array = [];
+var events_array = [];
 
 
 //getAll =================================
@@ -64,9 +65,9 @@ $.ajax({
 				row.allDay = true
 			}
 			
-					events_array.push(row);
+					events_array.push(row); // set default event
 			
-		}
+		} //for end
 		
 
 
@@ -85,7 +86,7 @@ $.ajax({
         header: {
           left: 'prevYear,nextYear',
           center: 'title',
-          right: 'today,month,agendaDay,agendaWeek prev,next'
+          right: 'listDay,today,month,agendaDay,agendaWeek prev,next'
         },
         // Make possible to respond to clicks and selections
         selectable: true,
@@ -95,69 +96,94 @@ $.ajax({
         // Make events editable, globally
         editable: true,
         
-
+        //defaultView: 'listWeek',
         
       //Drop =================================
         eventDrop: function(event, delta, revertFunc) {
         	
-        	  if (event.username != username) {
-        		  alert("본인의 이벤트만 변경할 수 있습니다.")
-        	      revertFunc();
-        		  return;
-        	    }
 
-        	
-            var data = {
-          		  calnum: event.calnum,
-                    title: event.title,
-                    start: event.start,
-                    end: event.end
-                  };
-          console.log(data);
-          $.ajax({
-              type: 'GET',
-              url: "./modifyEvent.do",
-              data: {
-                "event": JSON.stringify(data),
-              },
-              success: function(data) {
-					console.log(data);
-                  // Call the "updateEvent" method
-                  $calendar.fullCalendar("updateEvent", event);
-              }
-            });
+        		if (event.username == username || chief == username) {
+        			
+        			if(confirm("정말 변경하시겠습니까?")){
+        				var data = {
+                      		  calnum: event.calnum,
+                                title: event.title,
+                                start: event.start,
+                                end: event.end
+                              };
+                      console.log(data);
+                      $.ajax({
+                          type: 'GET',
+                          url: "./modifyEvent.do",
+                          data: {
+                            "event": JSON.stringify(data),
+                          },
+                          success: function(data) {
+            					console.log(data);
+                              // Call the "updateEvent" method
+                              $calendar.fullCalendar("updateEvent", event);
+                              
+                              return;
+                          }
+                        });
+        			}else{
+            		      revertFunc();
+            			  return;   
+                      }
+                      
+                    
+        	    }else{
+        	    	
+        			  alert("본인의 이벤트만 변경할 수 있습니다.")
+        		      revertFunc();
+        			  return;        	    	
+        	    	
+        	    }
 
 
         },
         
         eventResize: function(event, delta, revertFunc) {
         	
-        	if (event.username != username) {
-      		  alert("본인의 이벤트만 변경할 수 있습니다.")
-      	      revertFunc();
-      		  return;
-      	    }
-           
-            var data = {
-            		  calnum: event.calnum,
-                      title: event.title,
-                      start: event.start,
-                      end: event.end
-                    };
-            
-            $.ajax({
-                type: 'GET',
-                url: "./modifyEvent.do",
-                data: {
-                  "event": JSON.stringify(data),
-                },
-                success: function(data) {
-  					console.log(data);
-                    // Call the "updateEvent" method
-                    $calendar.fullCalendar("updateEvent", event);
-                }
-              });
         
+    		if (event.username == username || chief == username) {
+    			
+    			if(confirm("정말 변경하시겠습니까?")){
+    				var data = {
+                  		  calnum: event.calnum,
+                            title: event.title,
+                            start: event.start,
+                            end: event.end
+                          };
+                  console.log(data);
+                  $.ajax({
+                      type: 'GET',
+                      url: "./modifyEvent.do",
+                      data: {
+                        "event": JSON.stringify(data),
+                      },
+                      success: function(data) {
+        					console.log(data);
+                          // Call the "updateEvent" method
+                          $calendar.fullCalendar("updateEvent", event);
+                          
+                          return;
+                      }
+                    });
+    			}else{
+        		      revertFunc();
+        			  return;   
+                  }
+                  
+                
+    	    }else{
+    	    	
+    			  alert("본인의 이벤트만 변경할 수 있습니다.")
+    		      revertFunc();
+    			  return;        	    	
+    	    	
+    	    }
+
         },
         //This is the callback that will be triggered when a selection is made
         /*select: function(start, end, jsEvent, view) {
@@ -173,45 +199,49 @@ $.ajax({
               		element.find(".fc-content").prepend("<span class='closeon'>X</span>");
               	}
              		element.find(".closeon").on('click', function(e) {
-                  if(confirm("정말 삭제 하시겠습니까?")==true){
-                      
-                	  if(event.username != username){
-                		  e.stopPropagation();
-                		  alert("본인의 이벤트만 변경하실 수 있습니다.")
-                		  return;
-                	  }
-                    
-                    console.log('delete'+event._id);
-                    console.log('event.title'+event.title);
-                    console.log('event.calnum'+event.calnum);
-                    console.log('event.start'+event.start);
-                    console.log('event.end'+event.end);
-                  
-                    var data = {
-                    		calnum: event.calnum,
-                            title: event.title,
-                            start: event.start,
-                            end: event.end
-                          };
-                    
-                    $.ajax({
-                        type: 'POST',
-                        url: "./removeEvent.do",
-                        data: {
-                          "event": JSON.stringify(data),
-                        },
-                        success: function(data) {
-                      	  console.log(data);
-                      	$('#calendar').fullCalendar('removeEvents',event._id);
+             			
+             			
+                		if (event.username == username || chief == username) {
+                			
+                			if(confirm("정말 삭제하시겠습니까?")){
+                				
+                				var data = {
+                                		calnum: event.calnum,
+                                        title: event.title,
+                                        start: event.start,
+                                        end: event.end
+                                      };
+                                
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "./removeEvent.do",
+                                    data: {
+                                      "event": JSON.stringify(data),
+                                    },
+                                    success: function(data) {
+                                  	  console.log(data);
+                                  	$('#calendar').fullCalendar('removeEvents',event._id);
 
-                        }
-                      });
-                  	e.stopPropagation();
-                  	return;
-                  }else{
-                    e.stopPropagation();
-                    return;
-                  }
+                                    }
+                                  });
+                              	e.stopPropagation();
+                              	return;
+                              
+                			}else{
+                				e.stopPropagation();
+                      		  	return;   
+                              }
+                              
+                            
+                	    }else{
+                	    	
+                	    	e.stopPropagation();
+                  		  	alert("본인의 이벤트만 삭제하실 수 있습니다.")
+                  		  	return;        	    	
+                	    	
+                	    }		
+             			
+             			
               		});
               },
 
@@ -268,42 +298,49 @@ $.ajax({
         // Callback triggered when we click on an event
         eventClick: function(event, jsEvent, view) {
         	
-        	if (event.username != username) {
-      		  alert("본인의 이벤트만 변경할 수 있습니다.")
-      		  return;
-      	    }
+        	
+    		if (event.username == username || chief == username) {
+    			
+    			
+    			// Ask for a title. If empty it will default to "New event"
+    	          var newTitle = prompt("변경할 제목을 입력해 주세요", event.title);
 
-          // Ask for a title. If empty it will default to "New event"
-          var newTitle = prompt("Enter a new title for this event", event.title);
-
-          // If did not pressed Cancel button
-          if (newTitle != null) {
-            // Update event
-            event.title = newTitle.trim() != "" ? newTitle : event.title;
-            
-              var data = {
-            		  calnum: event.calnum,
-                      title: event.title,
-                      start: event.start,
-                      end: event.end
-                    };
-            
-            $.ajax({
-                type: 'GET',
-                url: "./modifyEvent.do",
-                data: {
-                  "event": JSON.stringify(data),
-                },
-                success: function(data) {
-					console.log(data);
-                    // Call the "updateEvent" method
-                    $calendar.fullCalendar("updateEvent", event);
-                }
-              });
-            
-            
-
-          }
+    	          // If did not pressed Cancel button
+    	          if (newTitle != null) {
+    	            // Update event
+    	            event.title = newTitle.trim() != "" ? newTitle : event.title;
+    	            
+    	              var data = {
+    	            		  calnum: event.calnum,
+    	                      title: event.title,
+    	                      start: event.start,
+    	                      end: event.end
+    	                    };
+    	            
+    	            $.ajax({
+    	                type: 'GET',
+    	                url: "./modifyEvent.do",
+    	                data: {
+    	                  "event": JSON.stringify(data),
+    	                },
+    	                success: function(data) {
+    						console.log(data);
+    	                    // Call the "updateEvent" method
+    	                    $calendar.fullCalendar("updateEvent", event);
+    	                }
+    	              });
+    	          }else{
+        		      revertFunc();
+        			  return;    
+    	          }
+    			
+    	    }else{
+    			  alert("본인의 이벤트만 변경할 수 있습니다.");
+    		      revertFunc();
+    			  return;    
+    	    }
+    	
+        	
         }, // End callback eventClick
         events: events_array
       } //End of options

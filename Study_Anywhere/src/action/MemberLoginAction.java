@@ -51,8 +51,8 @@ public class MemberLoginAction implements Action {
 		// 1) 로그인 정보를 불러오지 못했을 경우(로그인 실패)
 		if (loginInfo == null) {
 			out.println("<script>");
-			out.println("alert('로그인에 실패했습니다.');");
-			out.println("location.href='./index.html';");
+			out.println("alert('아이디 또는 비밀번호를 확인해 주세요.');");
+			out.println("location.href='./index.jsp';");
 			out.println("</script>");
 			out.close();
 			return af;
@@ -106,9 +106,9 @@ public class MemberLoginAction implements Action {
 		}
 		// 4) 이메일 인증을 수행하지 않았을 경우
 		else if (loginInfo.getMEMBER_CHECKED() == 0) {
-			HttpSession session = request.getSession();
+			/*HttpSession session = request.getSession();
 			session.setAttribute("loginInfo", loginInfo);
-			session.setAttribute("memberID", loginInfo.getMEMBER_ID());
+			session.setAttribute("memberID", loginInfo.getMEMBER_ID());*/
 			af = new ActionForward();
 			af.setPath("./emailSendConfirm.jsp");
 			af.setRedirect(true);

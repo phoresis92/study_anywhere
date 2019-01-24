@@ -1,259 +1,97 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
+  <title>Study Anywhere</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
 
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
-<title>Main</title>
-
-<!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom fonts for this template -->
-<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-	type="text/css">
-<link
-	href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
-<link
-	href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
-	rel='stylesheet' type='text/css'>
-
-<!-- Plugin CSS -->
-<link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
-
-<!-- Custom styles for this template -->
-<link href="css/creative.min.css" rel="stylesheet">
-
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    
+    .container{
+    	padding: 130px;
+    }
+  </style>
 </head>
+<body>
 
-<body id="page-top">
-
-	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-light fixed-top"
-		id="mainNav">
-		<div class="container">
-			<a class="navbar-brand js-scroll-trigger" href="#page-top">Study</a>
-			<button class="navbar-toggler navbar-toggler-right" type="button"
-				data-toggle="collapse" data-target="#navbarResponsive"
-				aria-controls="navbarResponsive" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#about">소개</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#services">기능</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#portfolio">이미지?</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#contact">문의</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-	<header class="masthead text-center text-dark d-flex">
-		<div class="container my-auto">
-			<div class="row">
-				<div class="col-lg-10 mx-auto">
-					<h1 class="text-uppercase">
-						<strong>Main</strong>
-					</h1>
-					<hr>
-				</div>
-				<div class="col-lg-8 mx-auto">
-					<p class="text-muted mb-5">Start Bootstrap can help you build
-						better websites using the Bootstrap CSS framework! Just download
-						your template and start going, no strings attached!</p>
-<%-- 						<% String mem_ID = "${session.mem_ID}";  %>						
-<% if(mem_ID == null || mem_ID.equals("")){ %>
-<h1>${session.mem_ID}</h1>
-					<a class="btn btn-light btn-xl sr-button" data-toggle="modal"
-						data-target="#loginForm">SignIn</a> <a
-						class="btn btn-dark btn-xl sr-button text-white" data-toggle="modal"
-						data-target="#joinForm">SignUp</a>
-						<% }else{ %>
-						<h1>${session.mem_ID}</h1>
-						<h1><%=mem_ID%></h1>
-											<a class="btn btn-light btn-xl sr-button" href="http://localhost/Study_Anywhere/myPage.jsp">MyPage</a> <a
-						class="btn btn-dark btn-xl sr-button text-white" href="http://localhost:3000/lobby/logout">Logout</a>
-						<% } %> --%>
-						
-						<c:choose>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="./">Study Anywhere</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+    
+<!--       <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+ -->      <ul class="nav navbar-nav navbar-right">
+ 
+		<c:choose>
         	<c:when test="${empty loginInfo.getMEMBER_ID()}">
-        		<div class="btn-group">
-		       		<button class="btn btn-outline-primary" data-toggle="modal" data-target="#loginForm">
-						로그인
-					</button>
-		       		<button class="btn btn-outline-primary" data-toggle="modal" data-target="#joinForm">
-						회원가입
-		       		</button>
-        		</div>
-        	</c:when>
-			
-			<c:when test="${loginInfo.getMEMBER_ID().equals('admin')}">
-        		<div class="btn-group">
-		       		 <button class="btn btn-outline-info" onclick="location.href='./boardSuspendList.kly'">
-	        	    	관리자 모드
-	        	    </button>
-	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.kly'">
-	        	    	로그아웃
-	        	    </button>
-        		</div>
+		<li><a data-toggle="modal" data-target="#loginForm"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
+        <li><a data-toggle="modal" data-target="#joinForm"><span class="glyphicon glyphicon-user"></span> Sign up</a>
         	</c:when>
         	
         	<c:otherwise>
-	        	<div class="btn-group">
-	        	    <button class="btn btn-outline-primary" onclick="location.href='./memberDetail.do'">
-	        	    	마이페이지
-	        	    </button>
-	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.do'">
-	        	    	로그아웃
-	        	    </button>
-	        	</div>
+		<li><a href="./memberDetail.do"><span class="glyphicon glyphicon-log-in"></span> My page</a></li>
+        <li><a href="./memberLogout.do"><span class="glyphicon glyphicon-log-out"></span> Sign out</a>
         	</c:otherwise>
         </c:choose>
-						
-				</div>
-				<!--  -->
-				<button onclick="location='boardList.do?page=1'">boardTest</button>
-				<button onclick="location='/Study_Anywhere/calendar.jsp'">calendar</button>
-				<!--  -->
-			</div>
-		</div>
-	</header>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-	<section class="bg-dark" id="about">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 mx-auto text-center">
-					<h2 class="section-heading text-white">We've got what you
-						need!</h2>
-					<hr class="light my-4">
-					<p class="text-faded mb-4">Start Bootstrap has everything you
-						need to get your new website up and running in no time! All of the
-						templates and themes on Start Bootstrap are open source, free to
-						download, and easy to use. No strings attached!</p>
-					<a class="btn btn-light btn-xl js-scroll-trigger sr-button" href="http://localhost:3000/">Get
-						Started!</a>
-				</div>
-			</div>
-		</div>
-	</section>
+<div class="jumbotron" style="height:600px">
+  <div class="container text-center">
+    <h1>Study Anywhere</h1>
+    <p>많은 사람들이 서로의 의견을 교환하고 지식을 높이는데 노력하고 있습니다.<br>
+지금 참여하여 당신의 생각과 공부법을 공유해 보세요!</p>
+	<br>
+      <button onClick="location.href='./myPage.jsp'">esend</button>
+	      <button onClick="location.href='./changeFromTemp.jsp'">myp1</button>
+	
+	<c:choose>
+		<c:when test="${empty loginInfo.getMEMBER_ID()}">
+	<button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#joinForm" style="50px">지금 가입하세요!</button>
+		</c:when>
+		<c:otherwise>
+	<button class="btn btn-lg btn-primary" onClick="location.href='http://localhost:3000'" style="50px">시작하기!</button>
+		</c:otherwise>
+	</c:choose>
+  </div>
+</div>
 
-	<section id="services">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<h2 class="section-heading">At Your Service</h2>
-					<hr class="my-4">
-				</div>
-			</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6 text-center">
-					<div class="service-box mt-5 mx-auto">
-						<i class="fas fa-4x fa-gem text-dark mb-3 sr-icon-1"></i>
-						<h3 class="mb-3">Sturdy Templates</h3>
-						<p class="text-muted mb-0">Our templates are updated regularly
-							so they don't break.</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 text-center">
-					<div class="service-box mt-5 mx-auto">
-						<i class="fas fa-4x fa-paper-plane text-dark mb-3 sr-icon-2"></i>
-						<h3 class="mb-3">Ready to Ship</h3>
-						<p class="text-muted mb-0">You can use this theme as is, or
-							you can make changes!</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 text-center">
-					<div class="service-box mt-5 mx-auto">
-						<i class="fas fa-4x fa-code text-dark mb-3 sr-icon-3"></i>
-						<h3 class="mb-3">Up to Date</h3>
-						<p class="text-muted mb-0">We update dependencies to keep
-							things fresh.</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 text-center">
-					<div class="service-box mt-5 mx-auto">
-						<i class="fas fa-4x fa-heart text-dark mb-3 sr-icon-4"></i>
-						<h3 class="mb-3">Made with Love</h3>
-						<p class="text-muted mb-0">You have to make your websites with
-							love these days!</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
 
-	<section class="bg-dark text-white" id="portfolio">
-		<div class="container text-center">
-			<h2 class="mb-4">Free Download at Start Bootstrap!</h2>
-			<a class="btn btn-light btn-xl sr-button"
-				href="http://startbootstrap.com/template-overviews/creative/">Download
-				Now!</a>
-		</div>
-	</section>
+<footer class="container-fluid text-center">
+  <p>KITRI 디지털 컨버젼스 28기</p>
+</footer>
 
-	<section id="contact">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 mx-auto text-center">
-					<h2 class="section-heading">Let's Get In Touch!</h2>
-					<hr class="my-4">
-					<p class="mb-5">Ready to start your next project with us?
-						That's great! Give us a call or send us an email and we will get
-						back to you as soon as possible!</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-4 ml-auto text-center">
-					<i class="fas fa-phone fa-3x mb-3 sr-contact-1"></i>
-					<p>123-456-6789</p>
-				</div>
-				<div class="col-lg-4 mr-auto text-center">
-					<i class="fas fa-envelope fa-3x mb-3 sr-contact-2"></i>
-					<p>
-						<a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a>
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
-	<div class="container fixed-bottom">
-		<div class="row">
-			<div class="col-lg-12 text-right" style="margin-bottom: 10px; margin-right: 10px;">
-				<a class="btn btn-light js-scroll-trigger" href="#page-top">
-					<i class="fa fa-arrow-up"></i>
-				</a>
-			</div>
-		</div>
-	</div>
-
-	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-	<!-- Plugin JavaScript -->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-	<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-	<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-	<!-- Custom scripts for this template -->
-	<script src="js/creative.min.js"></script>
 
 	<script>
 		var overlap = 0; // 0  중복체크 안함, 1 했고 중복 안됌
@@ -330,6 +168,7 @@
 		}
 	</script>
 
+
 	<!-- 로그인(modal) -->
 	<div class="modal" id="loginForm">
 		<div class="modal-dialog">
@@ -361,10 +200,12 @@
 		</div>
 	</div>
 
+
+
 	<!-- 회원가입(modal) -->
 	<div class="modal" id="joinForm">
 		<div class="modal-dialog">
-			<div class="modal-content">
+			<div class="modal-content" style="padding: 50px">
 				<div class="modal-header">
 					<h4 class="modal-title">회원가입</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -381,8 +222,8 @@
 									<div class="row">
 										<div class="col-sm-9">
 											<input class="form-control" name="MEMBER_ID" type="text"
-												maxlength="10" id="joinId" placeholder="아이디를 입력해 주세요." /> <input
-												class="form-control" name="memberID" type="hidden"
+												maxlength="10" id="joinId" placeholder="아이디를 입력해 주세요." /> 
+											<input class="form-control" name="memberID" type="hidden"
 												maxlength="10" id="tempId" placeholder="아이디를 입력해 주세요." />
 										</div>
 
@@ -450,5 +291,6 @@
 			</div>
 		</div>
 	</form>
+
 </body>
 </html>

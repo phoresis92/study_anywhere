@@ -182,9 +182,10 @@ public class CalendarDAO {
 		return jarr;
 	}
 	
-	public String getRoomname(String username) {
-		String sql = "select roomname from chatlist where member_id = ? ;";
-		String result = "";
+	public String[] getRoomname(String username) {
+		String sql = "select roomname, chief from chatlist where member_id = ? ;";
+		String[] result = new String[2] ;
+		
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -193,9 +194,11 @@ public class CalendarDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				result = rs.getString("roomname");
+				result[0] = rs.getString("roomname");
+				result[1] = rs.getString("chief");
 			}
 		
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("CalendarDAO에서의 에러 메세지"+e.getMessage());

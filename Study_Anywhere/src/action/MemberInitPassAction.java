@@ -34,13 +34,13 @@ public class MemberInitPassAction implements Action {
 			System.out.println("수정 완료");
 			out.println("<script>");
 			out.println("alert('비밀번호 초기화 완료');");
-			out.println("location.href='index.html';");
+			out.println("location.href='index.jsp';");
 			out.println("</script>");
 			out.close();
 		} else {
 			out.println("<script>");
 			out.println("alert('정보가 수정되지 않았습니다.');");
-			out.println("location.href='index.html';");
+			out.println("location.href='index.jsp';");
 			out.println("</script>");
 			out.close();
 		}

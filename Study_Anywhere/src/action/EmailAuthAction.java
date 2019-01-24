@@ -66,7 +66,7 @@ public class EmailAuthAction implements Action {
 		
 		String subject = "Study Anywhere 회원 인증 이메일 입니다.";
 		String content = "다음 링크에 접속하여 인증을 진행하세요."+
-					"<a href='" + host + "emailCheckedAction.do?code=" + new SHA256().getSHA256(to) + "'>이메일 인증하기</a>"; 
+					"<a href='" + host + "emailCheckedAction.do?code=" + new SHA256().getSHA256(to) + "&id="+ memberID +"'>이메일 인증하기</a>"; 
 		
 		Properties p = new Properties();
 		p.put("mail.smtp.user", from);

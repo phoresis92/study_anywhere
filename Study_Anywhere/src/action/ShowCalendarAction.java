@@ -23,13 +23,14 @@ public class ShowCalendarAction implements Action {
 		String username = (String)session.getAttribute("memberID");
 		
 		CalendarService cs = new CalendarService();
-		String roomname = cs.getRoomname(username);
+		String result[] = cs.getRoomname(username);
 		
-		System.out.println("username: "+ username);
-		System.out.println("roomname: "+ roomname);
+		
+		
 		
 		request.setAttribute("username", username);
-		request.setAttribute("roomname", roomname);
+		request.setAttribute("roomname", result[0]);
+		request.setAttribute("chief", result[1]);
 		af = new ActionForward();
 		af.setPath("./calendar.jsp");
 		return af;

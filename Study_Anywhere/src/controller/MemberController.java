@@ -22,6 +22,7 @@ import action.MemberModifyAction;
 import action.ShowCalendarAction;
 import ajax.AddEventAjax;
 import ajax.Ajax;
+import ajax.ClockAjax;
 import ajax.GetAllEventAjax;
 import ajax.IdOverlapCheckAjax;
 import ajax.ModifyEventAjax;
@@ -170,6 +171,7 @@ public class MemberController extends HttpServlet {
 			ajax = new AddEventAjax();
 			try {
 				responseText = ajax.getJSON(request, response); // JSON
+				response.setHeader("Access-Control-Allow-Origin","*");
 				response.getWriter().write(responseText);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -178,6 +180,7 @@ public class MemberController extends HttpServlet {
 			ajax = new RemoveEventAjax();
 			try {
 				responseText = ajax.getJSON(request, response); // JSON
+				response.setHeader("Access-Control-Allow-Origin","*");
 				response.getWriter().write(responseText);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -186,6 +189,7 @@ public class MemberController extends HttpServlet {
 			ajax = new ModifyEventAjax();
 			try {
 				responseText = ajax.getJSON(request, response); // JSON
+				response.setHeader("Access-Control-Allow-Origin","*");
 				response.getWriter().write(responseText);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -194,6 +198,7 @@ public class MemberController extends HttpServlet {
 			ajax = new GetAllEventAjax();
 			try {
 				responseText = ajax.getJSON(request, response); // JSON
+				response.setHeader("Access-Control-Allow-Origin","*");
 				response.getWriter().write(responseText);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -205,8 +210,17 @@ public class MemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// 게시물 조회
-		}
+			// 시계 ==========================================================================
+		}else if(command.equals("/clock.do")) {
+			ajax = new ClockAjax();
+			try {
+				responseText = ajax.getJSON(request, response); // JSON
+				response.setHeader("Access-Control-Allow-Origin","*");
+				response.getWriter().write(responseText);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
 
 		/** 2. ActionForward 인스턴스에 따른 forwarding */
 		if (forward != null) {

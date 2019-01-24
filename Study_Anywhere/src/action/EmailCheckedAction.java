@@ -34,20 +34,10 @@ public class EmailCheckedAction implements Action {
 		
 		/** 로그인 처리 */
 		String memberID= null;
-		if(session.getAttribute("memberID") != null) {
-			memberID = (String) session.getAttribute("memberID");
+		if(request.getParameter("id") != null) {
+			memberID = request.getParameter("id");
 			System.out.println("EmailAuthAction에서 memberID에 세션 값 저장 : "+memberID);
 		} 
-		
-		/** 비 로그인 접속 시 처리 */
-		if(memberID == null) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('로그인을 해주세요');");
-			script.println("location.href = 'index.html';");
-			script.println("</script>");
-			script.close();
-		}
 		
 		EmailAuthService eas = new EmailAuthService();
 		String memberEmail = eas.getUserEmail(memberID);
@@ -61,24 +51,24 @@ public class EmailCheckedAction implements Action {
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('인증에 성공했습니다.');");
-				script.println("location.href = 'index.html';");
+				script.println("location.href = 'index.jsp';");
 				script.println("</script>");
 				script.close();
 			} else {
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('정상적 인증코드이나, 데이터 베이스 오류가 있습니다./n 잠시 후 다시 시도해주세요.');");
-				script.println("location.href = 'index.html';");
+				script.println("location.href = 'index.jsp';");
 				script.println("</script>");
 				script.close();
 			}
 			
 		} else {
-			session.setAttribute("memberID", memberID);
+			//session.setAttribute("memberID", memberID);
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('유효하지 않은 코드 입니다.');");
-			script.println("location.href = 'index.html';");
+			script.println("location.href = 'index.jsp';");
 			script.println("</script>");
 			script.close();
 		}

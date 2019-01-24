@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="bean.MemberBean" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	/* 로그인 사용자만 접속 가능 */
 	MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
@@ -29,37 +29,103 @@
 %>
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./style.css" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <title>kly</title>
-  </head>
-  <body>
-  
-    <%@include file="./navbarTemplate.jsp" %>
+<head>
+  <title>My Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+
+	    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
     
-    <!-- 내용 부분 -->
-   	<div class="container">
-	    <h2 class="h1 ml-4 mt-4">My Page</h2>
-	    <div class="row mt-4 mb-4">
-	        
-	        <!-- 좌측 링크 -->
-	        <div class="col-md-4 col-lg-3">
-	            <div class="container">
-					<div class="list-group">
-	                    <a class="list-group-item active" href="myPage.jsp">정보변경</a>
-	                    <a class="list-group-item" href="./myContent.kly?listType=article">게시물 관리</a>
-						<a class="list-group-item" href="myPageDrop.jsp">회원탈퇴</a>
-	                </div>
-	            </div>
-	        </div>
-	        
-	        <div class="col-md-8 col-lg-9">
+    .container{
+    	padding: 130px;
+    }
+        .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+        /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      height: 400px;
+      .row.content {height: auto;} 
+    }
+
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="./">Study Anywhere</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+    
+<!--       <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+ -->      <ul class="nav navbar-nav navbar-right">
+ 
+
+		<li><a href="./memberDetail.do"><span class="glyphicon glyphicon-log-in"></span> My page</a></li>
+        <li><a href="./memberLogout.do"><span class="glyphicon glyphicon-log-out"></span> Sign out</a>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <h2>Study_Anywhere</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">내정보 변경</a></li>
+        <li><a href="#section2">회원탈퇴</a></li>
+        <!-- <li><a href="#section2">Friends</a></li>
+        <li><a href="#section3">Family</a></li>
+        <li><a href="#section3">Photos</a></li> -->
+      </ul><br><!-- 
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search Blog..">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div> -->
+    </div>
+
+    <div class="col-sm-9">
+      
+      <div class="col-md-8 col-lg-9">
 	            <div class="container">
 	                <h2>비밀번호 변경</h2>
 	                <form class="form mt-5" action="memberInfoRivision.do" id="memberInfoRivision">
@@ -118,16 +184,16 @@
 	                    </div>
 	                </form>
 	            </div>
-	        
 	        </div>
-	    </div>
-	</div>
-    
-    <!-- 하단바(footer) -->
-    <div class="jumbotron text-center">
-        <p>&copy; 2018 kly</p>
+      
     </div>
-   
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>KITRI 디지털 컨버젼스 28기</p>
+</footer>
+
    <script>
    var passConfirmed = 0;
    
@@ -159,5 +225,6 @@
 		}
 	}
    </script>
-  </body>
+
+</body>
 </html>
