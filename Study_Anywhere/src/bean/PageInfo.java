@@ -6,8 +6,23 @@ public class PageInfo {
 	private int startPage;
 	private int endPage;
 	private int countList;
+	private int startNum;
+	private int endNum;
 	
 	
+	
+	public int getStartNum() {
+		return startNum;
+	}
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+	public int getEndNum() {
+		return endNum;
+	}
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
+	}
 	public int getPage() {
 		return page;
 	}

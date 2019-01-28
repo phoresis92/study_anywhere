@@ -9,8 +9,24 @@ public class BoardBean {
 	private String board_content;
 	private Date board_date;	//작성 시간
 	private int board_readcount;	//게시물 조회수
+	private String roomname;
+	private int comment_count;
 	
 	
+	
+	
+	public int getComment_count() {
+		return comment_count;
+	}
+	public void setComment_count(int comment_count) {
+		this.comment_count = comment_count;
+	}
+	public String getRoomname() {
+		return roomname;
+	}
+	public void setRoomname(String roomname) {
+		this.roomname = roomname;
+	}
 	public String getMember_id() {
 		return member_id;
 	}

@@ -86,7 +86,7 @@ $.ajax({
         header: {
           left: 'prevYear,nextYear',
           center: 'title',
-          right: 'listDay,today,month,agendaDay,agendaWeek prev,next'
+          right: 'today,month,agendaDay,agendaWeek prev,next'
         },
         // Make possible to respond to clicks and selections
         selectable: true,

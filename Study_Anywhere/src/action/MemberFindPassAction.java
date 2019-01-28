@@ -27,6 +27,10 @@ public class MemberFindPassAction implements Action {
 		response.setContentType("text/html;charset=UTF-8");
 
 		HttpSession session = request.getSession();
+		
+		//=====================================
+		String url = "192.168.15.90";
+		//=====================================
 
 		System.out.println("이메일 인증 입력 id : " + request.getParameter("memberID"));
 
@@ -57,7 +61,7 @@ public class MemberFindPassAction implements Action {
 			// 이메일 전송
 			EmailAuthService eas = new EmailAuthService();
 
-			String host = "http://127.0.0.1:80/Study_Anywhere/";
+			String host = "http://"+url+":80/Study_Anywhere/";
 			String from = "phoresis92@gmail.com";
 			String to = eas.getUserEmail(memberID); // 유저의 가입 이메일 가져오기.
 

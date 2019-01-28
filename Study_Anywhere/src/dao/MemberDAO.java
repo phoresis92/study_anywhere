@@ -347,4 +347,46 @@ public class MemberDAO {
 	}
 	
 	
+	public int dropMember(MemberBean mb, String inputPassword) {
+		String confirm = "SELECT MEMBER_PW FROM MEMBER WHERE MEMBER_ID = ?";
+		String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = ?";
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(confirm);
+			pstmt.setString(1, mb.getMEMBER_ID());
+			rs = pstmt.executeQuery();
+
+			// 해당 아이디가 존재
+			if(rs.next()) {
+				// 입력 비밀번호가 일치
+				if(rs.getString(1).equals(inputPassword)) {
+					System.out.println("일단 true로 삭제 시도 까진 온다.");
+					System.out.println("삭제할 아이디는 : "+mb.getMEMBER_ID());
+					
+					pstmt = con.prepareStatement(sql);
+					System.out.println("pstmt = con.prepareStatement(sql); 시도");
+					pstmt.setString(1, mb.getMEMBER_ID());
+					System.out.println("pstmt.setString(1, mb.getMEMBER_ID());");
+					
+					result = pstmt.executeUpdate();
+					System.out.println("result = pstmt.executeUpdate();");
+					System.out.println(":: 삭제 결과");
+					System.out.println("result : "+result);
+				}
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				close(pstmt);
+				close(rs);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return result;
+	}
+	
+	
 }

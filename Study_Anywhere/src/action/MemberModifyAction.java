@@ -21,6 +21,10 @@ public class MemberModifyAction implements Action {
 		//session 객체의 정보 가져오기(가입정보)
 		HttpSession session = request.getSession();
 		
+		//======================================
+		String url = "192.168.15.90";
+		//======================================
+		
 		// 사용자의 현재 로그인 정보
 		MemberBean mb = (MemberBean) session.getAttribute("loginInfo");
 		
@@ -37,13 +41,17 @@ public class MemberModifyAction implements Action {
 			System.out.println("수정 완료");
 			//session.invalidate();
 			af = new ActionForward();
-			//String port = "3000";
-			af.setPath("http://localhost:3000/");
+			out.println("<script>");
+			out.println("alert('정보수정이 완료되었습니다.');");
+			out.println("location.href='http://"+url+"/Study_Anywhere/index.jsp';");
+			out.println("</script>");
+			out.close();
+			af.setPath("http://"+url+":3000/");
 			af.setRedirect(true);
 		} else {
 			out.println("<script>");
 			out.println("alert('정보가 수정되지 않았습니다.');");
-			out.println("location.href='myPage.html';");
+			out.println("location.href='myPage.jsp';");
 			out.println("</script>");
 			out.close();
 		}

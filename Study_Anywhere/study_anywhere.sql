@@ -47,3 +47,40 @@ create table calendar(
     constraint chatlist_member_id_fk foreign key(member_id)
     references member(member_id) on delete cascade    
     );
+	
+	
+	CREATE TABLE BOARD(
+	MEMBER_ID VARCHAR(50) NOT NULL,
+	BOARD_NUM INT auto_increment not null,
+	BOARD_SUBJECT VARCHAR(100) NOT NULL,
+	BOARD_CONTENT VARCHAR(2000) NOT NULL,
+	BOARD_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	BOARD_READCOUNT int default 0 not null,
+	roomname varchar(30) not null,
+	PRIMARY KEY(BOARD_NUM),
+	CONSTRAINT BOARD_MEMBER_ID_FK FOREIGN KEY(MEMBER_ID)
+	REFERENCES MEMBER(MEMBER_ID) ON DELETE CASCADE,
+	constraint board_roomname_fk foreign key(roomname)
+	references room(roomname) on delete cascade
+	);
+	
+	insert into board(member_id, board_subject, board_content, roomname ) values('aa','title','content','1234');
+	
+	CREATE TABLE BOARD_COMMENT (
+	BOARD_NUM int NOT NULL,
+	MEMBER_ID VARCHAR(50) NOT NULL,
+	COMMENT_NUM int auto_increment not null,
+	COMMENT_CON VARCHAR(1000) NOT NULL,
+	COMMENT_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(COMMENT_NUM),
+	CONSTRAINT FK_COMMENT_MEMBER FOREIGN KEY(MEMBER_ID)
+	REFERENCES MEMBER(MEMBER_ID) ON DELETE CASCADE,
+	CONSTRAINT FK_COMMENT_ARTICLE FOREIGN KEY(BOARD_NUM)
+	REFERENCES BOARD(BOARD_NUM) ON DELETE CASCADE
+);
+
+insert into board_comment(board_num, member_id, comment_con) values('70','aa','asdf');
+select max(comment_num) from board_comment;
+
+
+

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var="url" value="localhost" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +58,7 @@
         	</c:when>
         	
         	<c:otherwise>
-		<li><a href="./memberDetail.do"><span class="glyphicon glyphicon-log-in"></span> My page</a></li>
+		<li><a href="./myPage.jsp"><span class="glyphicon glyphicon-log-in"></span> My page</a></li>
         <li><a href="./memberLogout.do"><span class="glyphicon glyphicon-log-out"></span> Sign out</a>
         	</c:otherwise>
         </c:choose>
@@ -73,15 +73,13 @@
     <p>많은 사람들이 서로의 의견을 교환하고 지식을 높이는데 노력하고 있습니다.<br>
 지금 참여하여 당신의 생각과 공부법을 공유해 보세요!</p>
 	<br>
-      <button onClick="location.href='./myPage.jsp'">esend</button>
-	      <button onClick="location.href='./changeFromTemp.jsp'">myp1</button>
 	
 	<c:choose>
 		<c:when test="${empty loginInfo.getMEMBER_ID()}">
 	<button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#joinForm" style="50px">지금 가입하세요!</button>
 		</c:when>
 		<c:otherwise>
-	<button class="btn btn-lg btn-primary" onClick="location.href='http://localhost:3000'" style="50px">시작하기!</button>
+	<button class="btn btn-lg btn-primary" onClick="location.href='http://${ url }:3000'" style="50px">시작하기!</button>
 		</c:otherwise>
 	</c:choose>
   </div>
