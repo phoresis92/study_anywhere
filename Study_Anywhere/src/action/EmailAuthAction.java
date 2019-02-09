@@ -29,7 +29,7 @@ public class EmailAuthAction implements Action {
 		HttpSession session = request.getSession();
 		
 		//==========================
-		String url = "192.168.15.90";
+		String url = "54.180.100.17";
 		//==========================
 
 		System.out.println("이메일 인증, session id : " + session.getAttribute("memberID"));
@@ -62,7 +62,7 @@ public class EmailAuthAction implements Action {
 			script.close();
 		}
 		
-		String host = "http://"+url+":80/Study_Anywhere/";
+		String host = "http://"+url+":8080/Study_Anywhere/";
 		String from = "phoresis92@gmail.com";
 		String to = eas.getUserEmail(memberID); // 유저의 가입 이메일 가져오기.
 		

@@ -68,7 +68,7 @@ function update(){
   	  <input id="title" name="title" style="width: 500px" value="${ boardBean.board_subject }"></input>
     <div class="form-group">
       <label for="content">내용작성 : </label>
-      <textarea class="form-control" rows="5" id="content" name="content" style="resize:none; height: 250px;" ></textarea>
+      <textarea class="form-control" rows="5" id="content" name="content" style="resize:none; height: 500px;" >${ boardBean.board_content }</textarea>
     </div>
     <input type="hidden" name="num" value="${ boardBean.board_num }">
     <input type="hidden" name="roomname" value="${ boardBean.roomname }">

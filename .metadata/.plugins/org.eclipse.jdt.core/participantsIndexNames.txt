@@ -1,0 +1,5 @@
+INDEX VERSION 1.131
+C:\Users\hushe\Desktop\Project_2nd\Study_Anywhere(java)\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3010252242.index
+\Study_Anywhere\src
+C:\Users\hushe\Desktop\Study_Anywhere(java)\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3010252242.index
+\Study_Anywhere\src

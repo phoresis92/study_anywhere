@@ -147,7 +147,7 @@
 	                                <label><h5>현재 비밀번호</h5></label>
 	                            </div>
 	                            <div class="col-sm-9">
-	                                <input class="form-control" name="currentPassword" id="currentPW" type="text" placeholder="현재 비밀번호를 입력해 주세요."/>
+	                                <input class="form-control" name="currentPassword" id="currentPW" type="password" placeholder="현재 비밀번호를 입력해 주세요."/>
 	                           </div>
 	                        </div>
 
@@ -156,7 +156,7 @@
 	                                <label><h5>바꿀 비밀번호</h5></label>
 	                            </div>
 	                            <div class="col-sm-9">
-	                                <input class="form-control" name="changePassword" id="passw1" onkeyup="passCheck()" type="text" placeholder="바꿀 비밀번호를 입력해 주세요."/>
+	                                <input class="form-control" name="changePassword" id="passw1" onkeyup="passCheck()" type="password" placeholder="바꿀 비밀번호를 입력해 주세요."/>
 	                           </div>
 	                        </div>
 
@@ -165,7 +165,7 @@
 	                                <label><h5>비밀번호 확인</h5></label>
 	                            </div>
 	                            <div class="col-sm-9">
-	                                <input class="form-control" type="text" id="passw2" onkeyup="passCheck()" placeholder="바꿀 비밀번호를 한번 더 입력해 주세요."/>
+	                                <input class="form-control" type="password" id="passw2" onkeyup="passCheck()" placeholder="바꿀 비밀번호를 한번 더 입력해 주세요."/>
 	                           </div>
 	                        </div>
 
@@ -181,7 +181,7 @@
 	                        <div class="row text-right">
 	                            <div class="col">
 	                            	<p style="color:red;" id="passCheckMessage2"></p>
-	                                <button class="btn btn-primary" type="button" onclick="changePW()">비밀 번호 변경</button>
+	                                <button id="finalcheck" class="btn btn-primary" type="button" onclick="changePW()">비밀 번호 변경</button>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -207,12 +207,14 @@
 		if(pass1 != pass2) {
 			$("#passCheckMessage2").html("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
 			$("#passw1").addClass("warn");
-			$("#passw2").addClass("warn")
+			$("#passw2").addClass("warn");
+			$('#finalcheck').attr('disabled','disabled');
 		} else {
 			$("#passCheckMessage2").html("");
 			$("#passw1").removeClass("warn");
 			$("#passw2").removeClass("warn");
 			 passConfirmed = 1;
+			$('#finalcheck').removeAttr('disabled');
 		}
 	}
 	
@@ -220,6 +222,9 @@
 		if($("#currentPW").val() == ""){
 			alert("현재 비밀번호를 입력해주세요.");
 			return false;
+		}else if($("#passw1").val() == '' || $("#passw2").val() == ''){
+			alert('바꾸실 비밀번호를 입력해주세요')
+			return;
 		}else if(passConfirmed==0) {
 			alert("비밀번호가 일치하지 않습니다.");
 			return false;

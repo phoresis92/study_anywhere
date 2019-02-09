@@ -1,0 +1,9 @@
+INDEX VERSION 1.4+C:\Users\hushe\Desktop\Project_2nd\Study_Anywhere(java)\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+903916738.index
+177447247.index
+3010252242.index
+2056246032.index
+3010252242.index
+267733079.index
+3374815840.index
+692553870.index

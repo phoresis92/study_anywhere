@@ -34,7 +34,7 @@ public class BoardDAO {
 
 	public int getListCount() {
 		int listCount = 0;
-		String sql = "SELECT COUNT(*) FROM BOARD";
+		String sql = "SELECT COUNT(*) FROM board";
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -65,14 +65,14 @@ public class BoardDAO {
 
 			while (rs.next()) {
 				boardBean = new BoardBean();
-				boardBean.setMember_id(rs.getString("MEMBER_ID"));
-				boardBean.setBoard_num(rs.getInt("BOARD_NUM"));
-				boardBean.setBoard_subject(rs.getString("BOARD_SUBJECT"));
-				boardBean.setBoard_content(rs.getString("BOARD_CONTENT"));
-				boardBean.setBoard_date(rs.getDate("BOARD_DATE"));
+				boardBean.setMember_id(rs.getString("member_id"));
+				boardBean.setBoard_num(rs.getInt("board_num"));
+				boardBean.setBoard_subject(rs.getString("board_subject"));
+				boardBean.setBoard_content(rs.getString("board_content"));
+				boardBean.setBoard_date(rs.getDate("board_date"));
 				//boardBean.setBOARD_VIDEO_FILE(rs.getString("BOARD_FILE"));
 				//boardBean.setBOARD_VIDEO_URL(rs.getString("BOARD_URL"));
-				boardBean.setBoard_readcount(rs.getInt("BOARD_READCOUNT"));
+				boardBean.setBoard_readcount(rs.getInt("board_readcount"));
 				boardBean.setRoomname(rs.getString("roomname"));
 			//	boardBean.setBOARD_LIKECOUNT(rs.getInt("BOARD_LIKECOUNT"));
 			//	boardBean.setBOARD_REPORTCOUNT(rs.getInt("BOARD_REPORTCOUNT"));
@@ -124,12 +124,12 @@ public class BoardDAO {
 		
 		while(rs.next()) {
 			
-			boardBean.setMember_id(rs.getString("MEMBER_ID"));
-			boardBean.setBoard_num(rs.getInt("BOARD_NUM"));
-			boardBean.setBoard_subject(rs.getString("BOARD_SUBJECT"));
-			boardBean.setBoard_content(rs.getString("BOARD_CONTENT"));
-			boardBean.setBoard_date(rs.getDate("BOARD_DATE"));
-			boardBean.setBoard_readcount(rs.getInt("BOARD_READCOUNT"));
+			boardBean.setMember_id(rs.getString("member_id"));
+			boardBean.setBoard_num(rs.getInt("board_num"));
+			boardBean.setBoard_subject(rs.getString("board_subject"));
+			boardBean.setBoard_content(rs.getString("board_content"));
+			boardBean.setBoard_date(rs.getDate("board_date"));
+			boardBean.setBoard_readcount(rs.getInt("board_readcount"));
 			boardBean.setRoomname(rs.getString("roomname"));
 			
 		}
@@ -280,7 +280,7 @@ public class BoardDAO {
 public ArrayList<Comment> getAllComment(int board_num) {
 		
 		ArrayList<Comment> list = new ArrayList<>();
-		String sql = "select * from board_comment where board_num = ? order by comment_date desc;";
+		String sql = "select * from board_comment where board_num = ? order by comment_date;";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, board_num);
@@ -382,12 +382,12 @@ public ArrayList<BoardBean> searchTitle(String key) {
 		while(rs.next()) {
 			
 			BoardBean boardBean = new BoardBean();
-			boardBean.setMember_id(rs.getString("MEMBER_ID"));
-			boardBean.setBoard_num(rs.getInt("BOARD_NUM"));
-			boardBean.setBoard_subject(rs.getString("BOARD_SUBJECT"));
-			boardBean.setBoard_content(rs.getString("BOARD_CONTENT"));
-			boardBean.setBoard_date(rs.getDate("BOARD_DATE"));
-			boardBean.setBoard_readcount(rs.getInt("BOARD_READCOUNT"));
+			boardBean.setMember_id(rs.getString("member_id"));
+			boardBean.setBoard_num(rs.getInt("board_num"));
+			boardBean.setBoard_subject(rs.getString("board_subject"));
+			boardBean.setBoard_content(rs.getString("board_content"));
+			boardBean.setBoard_date(rs.getDate("board_date"));
+			boardBean.setBoard_readcount(rs.getInt("board_readcount"));
 			boardBean.setRoomname(rs.getString("roomname"));
 			list.add(boardBean);
 			
@@ -417,12 +417,12 @@ public ArrayList<BoardBean> searchTitle(String key) {
 			while(rs.next()) {
 				
 				BoardBean boardBean = new BoardBean();
-				boardBean.setMember_id(rs.getString("MEMBER_ID"));
-				boardBean.setBoard_num(rs.getInt("BOARD_NUM"));
-				boardBean.setBoard_subject(rs.getString("BOARD_SUBJECT"));
-				boardBean.setBoard_content(rs.getString("BOARD_CONTENT"));
-				boardBean.setBoard_date(rs.getDate("BOARD_DATE"));
-				boardBean.setBoard_readcount(rs.getInt("BOARD_READCOUNT"));
+				boardBean.setMember_id(rs.getString("member_id"));
+				boardBean.setBoard_num(rs.getInt("board_num"));
+				boardBean.setBoard_subject(rs.getString("board_subject"));
+				boardBean.setBoard_content(rs.getString("board_content"));
+				boardBean.setBoard_date(rs.getDate("board_date"));
+				boardBean.setBoard_readcount(rs.getInt("board_readcount"));
 				boardBean.setRoomname(rs.getString("roomname"));
 				list.add(boardBean);
 				
@@ -439,5 +439,27 @@ public ArrayList<BoardBean> searchTitle(String key) {
 		
 	}
 	
+
+public int dropComment(int cnum) {
+	int result = 0;
+	String sql = "delete from board_comment where comment_num = ?";
+	try {
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, cnum);
+		result = pstmt.executeUpdate();
+		
+		
+		
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		close(rs);
+		close(pstmt);
+	}
+	return result;
+	
+}
+
 
 }

@@ -18,10 +18,6 @@ public class MemberDropService {
 		
 		int result = memberDAO.dropMember(mb, inputPassword);
 		
-		System.out.println(":: dropService ::");
-		System.out.println("dropMember result : "+result);
-		System.out.println();
-		
 		if(result != 0) {
 			dropResult = true;
 			commit(con);

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="url" value="localhost" />
+<c:set var="url" value="54.180.100.17" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -182,12 +182,12 @@
 							<h5>
 								<label>아이디</label>
 							</h5>
-							<input class="form-control" name="loginId" type="text" id="id" />
+							<input class="form-control" name="loginId" type="text" id="id" value="java" />
 							<h5>
 								<label>비밀번호</label>
 							</h5>
 							<input class="form-control" name="loginPwd" type="password"
-								id="pwd" /> <a data-toggle="modal" data-target="#MissingForm"><u>혹시 비밀번호를 잊어버리셨나요?</u></a>
+								id="pwd" value="1234" /> <a data-toggle="modal" data-target="#MissingForm"><u>혹시 비밀번호를 잊어버리셨나요?</u></a>
 						</div>
 						<div class="modal-footer">
 							<button class="btn btn-dark" type="submit">로그인</button>

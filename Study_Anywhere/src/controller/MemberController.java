@@ -29,7 +29,9 @@ import ajax.AddEventAjax;
 import ajax.Ajax;
 import ajax.ClockAjax;
 import ajax.CommentAddAjax;
+import ajax.CommentDropAjax;
 import ajax.GetAllEventAjax;
+import ajax.GetBoardFiveAjax;
 import ajax.IdOverlapCheckAjax;
 import ajax.ModifyEventAjax;
 import ajax.RemoveEventAjax;
@@ -217,6 +219,16 @@ public class MemberController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		}else if (command.equals("/commentDrop.do")) {
+			ajax = new CommentDropAjax();
+			try {
+				responseText = ajax.getJSON(request, response); // JSON
+				response.setHeader("Access-Control-Allow-Origin","*");
+				response.getWriter().write(responseText);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}else if (command.equals("/commentGetAll.do")) {
 			ajax = new commentGetAllAjax();
 			try {
@@ -229,6 +241,16 @@ public class MemberController extends HttpServlet {
 			
 		} else if (command.equals("/boardSearch.do")) {
 			ajax = new SearchBoardAjax();
+			try {
+				responseText = ajax.getJSON(request, response); // JSON
+				response.setHeader("Access-Control-Allow-Origin","*");
+				response.getWriter().write(responseText);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else if (command.equals("/getBoardFive.do")) {
+			ajax = new GetBoardFiveAjax();
 			try {
 				responseText = ajax.getJSON(request, response); // JSON
 				response.setHeader("Access-Control-Allow-Origin","*");

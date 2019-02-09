@@ -128,7 +128,7 @@
 
     <div class="col-sm-9">
       
-      	        <div class="col-md-8 col-lg-9">
+      	        <div class="col-md-5">
 	            <div class="container">
 	                <h2>회원탈퇴</h2>
 	                <form class="form mt-5" id="memberInfoRivision" method="post">
@@ -147,7 +147,7 @@
 	                                <label><h5>비밀번호</h5></label>
 	                            </div>
 	                            <div class="col-sm-9">
-	                                <input class="form-control" name="memberPW" id="passw1" onkeyup="passCheck()" onkeydown="passCheck()" type="password" />
+	                                <input class="form-control" name="memberPW" id="passw1" onkeyup="passCheck()"  type="password" />
 	                           </div>
 	                        </div>
 
@@ -156,7 +156,7 @@
 	                                <label><h5>비밀번호 확인</h5></label>
 	                            </div>
 	                            <div class="col-sm-9">
-	                                <input class="form-control" type="password" id="passw2" onkeyup="passCheck()" onkeydown="passCheck()" />
+	                                <input class="form-control" type="password" id="passw2" onkeyup="passCheck()"  />
 	                           </div>
 	                        </div>
 	                        
@@ -171,6 +171,8 @@
 	            </div>
 	        
 	        </div>
+	        
+	        <div class="col-md-3"></div>
       
     </div>
   </div>
@@ -187,13 +189,19 @@
 	/* 패스워드 일치 알림 */
 	function passCheck() {
 		if($("#passw1").val() != $("#passw2").val()) {
-			$("#passCheckMessage2").html("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+			$("#passCheckMessage2").text("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
 			$("#passw1").addClass("warn");
 			$("#passw2").addClass("warn")
 			passconfirmed = 0;
+			$('#drop').attr('disabled','disabled');
 			
-		} else {
-			$("#passCheckMessage2").html("");
+		}else if($("#passw1").val() == '' || $("#passw2").val()==''){
+		
+			$('#drop').attr('disabled','disabled');
+		
+		}else {
+		
+			$("#passCheckMessage2").text("");
 			$("#passw1").removeClass("warn");
 			$("#passw2").removeClass("warn");
 			 passConfirmed = 1;
@@ -213,6 +221,7 @@
 			$("#memberInfoRivision").attr('action', 'memberDrop.do');
 			$("#memberInfoRivision").submit();
 		}
+		return;
 	}
    </script>
 

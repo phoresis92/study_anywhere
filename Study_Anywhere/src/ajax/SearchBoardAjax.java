@@ -1,5 +1,6 @@
 package ajax;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,13 +53,15 @@ public class SearchBoardAjax implements Ajax {
 			obj.put("member_id", board.getMember_id());
 			obj.put("board_num", board.getBoard_num());
 			obj.put("board_subject", board.getBoard_subject());
-			obj.put("board_date", board.getBoard_date());
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			
+			obj.put("board_date", sdf.format(board.getBoard_date()));
 			obj.put("board_readcount", board.getBoard_readcount());
 			obj.put("roomname", board.getRoomname());
 			obj.put("comment_count", board.getComment_count());
 			arr.add(obj);
 		}
-		System.out.println(arr);
 		
 		return arr.toJSONString();
 		

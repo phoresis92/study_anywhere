@@ -85,4 +85,18 @@ public class CommentService {
 	}
 	
 	
+	public int dropComment(int cnum) {
+		
+		
+		Connection con = getConnection();
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		boardDAO.setConnection(con);
+		
+		int result = boardDAO.dropComment(cnum);
+		
+		close(con);
+		return result;
+		
+	}
+	
 }

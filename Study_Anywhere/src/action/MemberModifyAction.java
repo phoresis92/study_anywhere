@@ -22,7 +22,7 @@ public class MemberModifyAction implements Action {
 		HttpSession session = request.getSession();
 		
 		//======================================
-		String url = "192.168.15.90";
+		String url = "54.180.100.17";
 		//======================================
 		
 		// 사용자의 현재 로그인 정보
@@ -39,18 +39,14 @@ public class MemberModifyAction implements Action {
 		PrintWriter out = response.getWriter();
 		if(result) {
 			System.out.println("수정 완료");
-			//session.invalidate();
-			af = new ActionForward();
 			out.println("<script>");
 			out.println("alert('정보수정이 완료되었습니다.');");
-			out.println("location.href='http://"+url+"/Study_Anywhere/index.jsp';");
+			out.println("location.href='index.jsp';");
 			out.println("</script>");
 			out.close();
-			af.setPath("http://"+url+":3000/");
-			af.setRedirect(true);
 		} else {
 			out.println("<script>");
-			out.println("alert('정보가 수정되지 않았습니다.');");
+			out.println("alert('현재 비밀번호를 확인해주세요.');");
 			out.println("location.href='myPage.jsp';");
 			out.println("</script>");
 			out.close();

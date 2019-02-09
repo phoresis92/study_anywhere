@@ -27,9 +27,10 @@ public class MemberDropAction implements Action {
 		
 		// 사용자가 입력한 비밀번호
 		String inputPassword = (String) request.getParameter("memberPW");
-		ActionForward af = new ActionForward();
 		
 		
+		
+		ActionForward af = null;
 		if(!mb.getMEMBER_PW().equals(inputPassword)) {
 			out.println("<script>");
 			out.println("alert('비밀번호를 확인해 주세요.');");
@@ -47,24 +48,23 @@ public class MemberDropAction implements Action {
 		
 		MemberDropService mds = new MemberDropService();
 		boolean result = mds.dropMember(mb, inputPassword); 
-
 		if(result) {
+			session.invalidate();
 			out.println("<script>");
 			out.println("alert('회원탈퇴 성공하였습니다.');");
+			out.println("location.href='./index.jsp';");
 			out.println("</script>");
-			session.invalidate();
-			af.setPath("./index.jsp");
-			af = new ActionForward();
-			af.setRedirect(true);
+			out.close();
 			return af;
 		} else {
 			out.println("<script>");
 			out.println("alert('탈퇴가 취소 되었습니다.');");
+			out.println("location.href='./index.jsp';");
 			out.println("</script>");
-			af.setRedirect(true);
 			out.close();
 			return af;
 		}
+		
 				
 	}
 

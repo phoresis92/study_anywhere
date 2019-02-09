@@ -26,33 +26,75 @@ margin-bottom: 30px;
 
 <script>
 
-$(document).ready(function(){
+var showComment = function(){
 	$.ajax({
-		type: "post",
-		url: 'commentGetAll.do',
-		data:{
-			'board_num': '${boardBean.board_num}'
-		},
-		success:function(data){
-			var list = JSON.parse(data);
-			for(var i in list){
-				
-				$('<div></div>').attr('id',list[i].comment_num).appendTo('#comment');
-				$('<span></span>').attr('style','color: white;').attr('class','bg-primary').text(list[i].member_id).appendTo('#'+list[i].comment_num+'');
-				$('<span></span>').text(' ').appendTo('#'+list[i].comment_num+'');
-				$('<span></span>').text(list[i].comment_date).appendTo('#'+list[i].comment_num+'');
-				//$('<button class="btn btn-sm btn-info"></button>').text('답글').appendTo('#'+list[i].comment_num+'');
-				$('<div></div>').text(list[i].comment_content).attr('class','lead').appendTo('#'+list[i].comment_num+'');
-				$('<hr>').appendTo('#'+list[i].comment_num+'');
+	type: "post",
+	url: 'commentGetAll.do',
+	data:{
+		'board_num': '${boardBean.board_num}'
+	},
+	success:function(data){
+		var list = JSON.parse(data);
+		for(var i in list){
+			
+			$('<div></div>').attr('id',list[i].comment_num+'co').appendTo('#comment');
+			if('${ boardBean.member_id }' == list[i].member_id){
+				$('<span></span>').attr('style','color: white;').attr('class','bg-danger').text(list[i].member_id).appendTo('#'+list[i].comment_num+'co');
+				$('<span></span>').attr('style','color: white;').attr('class','bg-danger float-right').text('작성자').appendTo('#'+list[i].comment_num+'co');
+			}else{
+				$('<span></span>').attr('style','color: white;').attr('class','bg-primary').text(list[i].member_id).appendTo('#'+list[i].comment_num+'co');
 			}
-			$('#commentNum').text(list.length);
+			$('<span></span>').text(' ').appendTo('#'+list[i].comment_num+'co');
+			$('<span></span>').text(list[i].comment_date).appendTo('#'+list[i].comment_num+'co');
+			if('${sessionScope.memberID}' == list[i].member_id){
+			$('<button num='+list[i].comment_num+' class="btn btn-sm btn-info commBtn float-right"></button>').text('삭제').appendTo('#'+list[i].comment_num+'co');
+			}
+			$('<div></div>').text(list[i].comment_content).attr('class','lead').appendTo('#'+list[i].comment_num+'co');
+			$('<hr>').appendTo('#'+list[i].comment_num+'co');
 		}
-	})//ajax end
-	 
+		$('#commentNum').text(list.length);
+	}
+})//ajax end
+}
+
+$(document).ready(function(){
 	
 	
+
+
+	showComment();
 	
+	$(document).on("click",".commBtn",function(event){
+		if(!confirm('정말 삭제하시겠습니까?')){
+			return;
+		}
+        var cnum = $(this).attr('num');
+        
+        $.ajax({
+		type: "post",
+		url: './commentDrop.do',
+		data:{
+			'cnum': cnum
+		},
+		success: function(data){
+			console.log(data)
+			if(data == 0){
+				alert('내부 오류로 인해 댓글 삭제가 취소되었습니다.')
+			}
+			
+			$('#comment').empty();
+			showComment(); 
+			
+		}
+	});//ajax end
+        
+        
+      });
+
+	
+
 });//ready end
+
 
 
 function del(){
@@ -90,12 +132,21 @@ function addComment(){
 			console.log(JSON.parse(data));
 			var obj = JSON.parse(data)
 			$('<div></div>').attr('id',obj.comment_num).appendTo('#comment');
-			$('<span></span>').attr('style','color: white;').attr('class','bg-primary').text(obj.member_id).appendTo('#'+obj.comment_num+'');
+			if('${ boardBean.member_id }' == obj.member_id){
+				$('<span></span>').attr('style','color: white;').attr('class','bg-danger').text(obj.member_id).appendTo('#'+obj.comment_num+'');
+				$('<span></span>').attr('style','color: white;').attr('class','bg-danger float-right').text('작성자').appendTo('#'+obj.comment_num+'');
+			}else{
+				$('<span></span>').attr('style','color: white;').attr('class','bg-primary').text(obj.member_id).appendTo('#'+obj.comment_num+'');
+			}
 			$('<span></span>').text(' ').appendTo('#'+obj.comment_num+'');
 			$('<span></span>').text(obj.comment_date).appendTo('#'+obj.comment_num+'');
-			//$('<button class="btn btn-sm btn-info"></button>').text('답글').appendTo('#'+list[i].comment_num+'');
+			if('${sessionScope.memberID}' == obj.member_id){
+				$('<button num='+obj.comment_num+' class="btn btn-sm btn-info commBtn float-right"></button>').text('삭제').appendTo('#'+obj.comment_num+'');
+				}
 			$('<div></div>').text(obj.comment_content).attr('class','lead').appendTo('#'+obj.comment_num+'');
 			$('<hr>').appendTo('#'+obj.comment_num+'');
+			
+			
 			
 		}
 	});//ajax end
@@ -121,7 +172,7 @@ function addComment(){
 	</div>
 <br>
 
-	<table class="table table-bordered">
+	<table class="table table-bordered" >
 	<thead class="thead-light">
 	<tr>
  	<th colspan="3" style="font-size: 20px">제목 : ${boardBean.board_subject }</th>
@@ -133,7 +184,7 @@ function addComment(){
 	<td>작성일 : ${boardBean.board_date }</td>
 	</tr>
 	<tr>
-	<td colspan="3" style="height: 250px">${boardBean.board_content }</td>
+	<td colspan="3" ><pre style=" font-size: 13px; word-wrap: break-word; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-break:break-all;" >${boardBean.board_content }</pre></td>
 	</tr>
 	
 	</table>
@@ -149,7 +200,8 @@ function addComment(){
 	<br>
 	
 	<span>댓글수</span><span id="commentNum"></span><span>&nbsp;&nbsp;&nbsp;</span><sapn>조회수</sapn><span>${ boardBean.board_readcount }</span>
-	<div id="comment">
+	
+	<div>
 		<div class="row">
 			<div class="col-10">
 				<textarea class="form-control" rows="2" cols="10" id="content" name="content" style="resize:none; " ></textarea>
@@ -159,7 +211,7 @@ function addComment(){
 			</div>
 		</div>
 	</div>
-	
+	<div id="comment"></div>
 	
 	
 </div>

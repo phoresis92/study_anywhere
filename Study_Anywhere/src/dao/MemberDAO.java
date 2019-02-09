@@ -36,7 +36,7 @@ public class MemberDAO {
 	
 	public int joinMember(MemberBean mb) {
 		//String sql = "INSERT INTO MEMBER (MEMBER_ID, MEMBER_PW, MEMBER_EMAIL, MEMBER_DATE) VALUES(?,?,?, SYSDATE)";
-		String sql = "INSERT INTO MEMBER (MEMBER_ID, MEMBER_PW, MEMBER_EMAIL) VALUES(?,?,?)";
+		String sql = "INSERT INTO member (member_id, member_pw, member_email) VALUES(?,?,?)";
 		int result = 0;
 		
 		System.out.println(":: MemberDAO ::");
@@ -67,7 +67,7 @@ public class MemberDAO {
 
 	/** 이메일 인증 완료 검증 메소드 */
 	public boolean getUserEmailChecked(String memberID) {
-		String sql = "SELECT MEMBER_CHECKED FROM MEMBER WHERE MEMBER_ID = ?";
+		String sql = "SELECT member_checked FROM member WHERE member_id = ?";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -93,7 +93,7 @@ public class MemberDAO {
 
 	
 	public boolean idCheck(String inputId) {
-		String sql = "SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_ID = ?";
+		String sql = "SELECT member_id FROM member WHERE member_id = ?";
 		boolean result = false;
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -118,7 +118,7 @@ public class MemberDAO {
 	
 	
 	public String getUserEmail(String memberID) {
-		String sql = "SELECT MEMBER_EMAIL FROM MEMBER WHERE MEMBER_ID = ?";
+		String sql = "SELECT member_email FROM member WHERE member_id = ?";
 		String result = null;
 		System.out.println("MemberDAO 로 넘어온 memberID의 값 : "+memberID);
 		try {
@@ -145,7 +145,7 @@ public class MemberDAO {
 	
 	
 	public int setUserEmailChecked(String memberID) {
-		String sql = "UPDATE MEMBER SET MEMBER_CHECKED = 1 WHERE MEMBER_ID = ?";
+		String sql = "UPDATE member SET member_checked = 1 WHERE member_id = ?";
 		System.out.println("setUserEmailChecked에 넘어온 유저 아이디 : "+memberID);
 		int result = 0;
 		try {
@@ -168,7 +168,7 @@ public class MemberDAO {
 
 	
 	public MemberBean loginMember(MemberBean mb) {
-		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID=?";
+		String sql = "SELECT * FROM member WHERE member_id=?";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -180,14 +180,14 @@ public class MemberDAO {
 				System.out.println("쿼리 결과 존재");
 				if(rs.getString("MEMBER_PW").equals(mb.getMEMBER_PW())) {
 					System.out.println("로그인 성공");
-					mb.setMEMBER_ID(rs.getString("MEMBER_ID"));
-					mb.setMEMBER_PW(rs.getString("MEMBER_PW"));
-					mb.setMEMBER_TEMPPASS(rs.getString("MEMBER_TEMPPASS"));
-					mb.setMEMBER_SETTEMP(rs.getInt("MEMBER_SETTEMP"));
-					mb.setMEMBER_EMAIL(rs.getString("MEMBER_EMAIL"));
-					mb.setMEMBER_CHECKED(rs.getInt("MEMBER_CHECKED"));
-					mb.setMEMBER_DATE(rs.getDate("MEMBER_DATE"));
-					mb.setMEMBER_SUSPENED(rs.getDate("MEMBER_SUSPENDED"));
+					mb.setMEMBER_ID(rs.getString("member_id"));
+					mb.setMEMBER_PW(rs.getString("member_pw"));
+					mb.setMEMBER_TEMPPASS(rs.getString("member_temppass"));
+					mb.setMEMBER_SETTEMP(rs.getInt("member_settemp"));
+					mb.setMEMBER_EMAIL(rs.getString("member_email"));
+					mb.setMEMBER_CHECKED(rs.getInt("member_checked"));
+					mb.setMEMBER_DATE(rs.getDate("member_date"));
+					mb.setMEMBER_SUSPENED(rs.getDate("member_suspended"));
 				} else {
 					System.out.println("비밀번호 틀림");
 					mb = null;
@@ -213,7 +213,7 @@ public class MemberDAO {
 
 	
 	public int relieveSuspendBoard(String mem_ID) { // 멤버 정지 해제
-		String sql = "UPDATE MEMBER SET MEMBER_SUSPENDED = NULL WHERE MEMBER_ID=?";
+		String sql = "UPDATE member SET member_suspended = NULL WHERE member_id=?";
 		int updateResult = 0;
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -229,7 +229,7 @@ public class MemberDAO {
 
 	
 	public int setTempMember(String memberID, String tempPass) {
-		String sql = "UPDATE MEMBER SET MEMBER_TEMPPASS = ? WHERE MEMBER_ID = ?";
+		String sql = "UPDATE member SET member_temppass = ? WHERE member_id = ?";
 		int result = 0;
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -251,8 +251,8 @@ public class MemberDAO {
 
 	
 	public int modifyMember(String memberID, String tempPass) {
-		String sql1 = "UPDATE MEMBER SET MEMBER_SETTEMP = 1 WHERE MEMBER_ID = ?";
-		String sql2 = "UPDATE MEMBER SET MEMBER_PW = ? WHERE MEMBER_ID = ?";
+		String sql1 = "UPDATE member SET member_settemp = 1 WHERE member_id = ?";
+		String sql2 = "UPDATE member SET member_pw = ? WHERE member_id = ?";
 		int result1 = 0;
 		int result2 = 0;
 		try {
@@ -283,8 +283,8 @@ public class MemberDAO {
 	
 	/** 마이페이지에서 정보 변경시 사용하는 메소드 */
 	public int modifyMember(MemberBean mb, String currentPassword, String changePassword) {
-		String confirm = "SELECT MEMBER_PW FROM MEMBER WHERE MEMBER_ID = ?";
-		String sql = "UPDATE MEMBER SET MEMBER_PW = ?, MEMBER_SETTEMP = 0 WHERE MEMBER_ID = ?";
+		String confirm = "SELECT member_pw FROM member WHERE member_id = ?";
+		String sql = "UPDATE member SET member_pw = ?, member_settemp = 0 WHERE member_id = ?";
 		int result = 0;
 		try {
 			pstmt = con.prepareStatement(confirm);
@@ -320,7 +320,7 @@ public class MemberDAO {
 	
 	public boolean tempPassCheck(String temppass, String memberID) {
 		
-		String sql = "SELECT MEMBER_TEMPPASS FROM MEMBER WHERE MEMBER_ID = ?";
+		String sql = "SELECT member_temppass FROM member WHERE member_id = ?";
 		boolean result = false;
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -348,32 +348,12 @@ public class MemberDAO {
 	
 	
 	public int dropMember(MemberBean mb, String inputPassword) {
-		String confirm = "SELECT MEMBER_PW FROM MEMBER WHERE MEMBER_ID = ?";
-		String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = ?";
+		String sql = "DELETE FROM member WHERE member_id = ?";
 		int result = 0;
 		try {
-			pstmt = con.prepareStatement(confirm);
-			pstmt.setString(1, mb.getMEMBER_ID());
-			rs = pstmt.executeQuery();
-
-			// 해당 아이디가 존재
-			if(rs.next()) {
-				// 입력 비밀번호가 일치
-				if(rs.getString(1).equals(inputPassword)) {
-					System.out.println("일단 true로 삭제 시도 까진 온다.");
-					System.out.println("삭제할 아이디는 : "+mb.getMEMBER_ID());
-					
 					pstmt = con.prepareStatement(sql);
-					System.out.println("pstmt = con.prepareStatement(sql); 시도");
 					pstmt.setString(1, mb.getMEMBER_ID());
-					System.out.println("pstmt.setString(1, mb.getMEMBER_ID());");
-					
 					result = pstmt.executeUpdate();
-					System.out.println("result = pstmt.executeUpdate();");
-					System.out.println(":: 삭제 결과");
-					System.out.println("result : "+result);
-				}
-			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {

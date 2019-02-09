@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="ajax.AddEventAjax"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="dao.CalendarDAO"/>
+<fullyQualifiedTypeName name="ajax.Ajax"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+<fullyQualifiedTypeName name="action.BoardReadAction"/>
+<fullyQualifiedTypeName name="action.BoardUpdateAction"/>
+<fullyQualifiedTypeName name="ajax.CommentAddAjax"/>
+<fullyQualifiedTypeName name="bean.Comment"/>
+<fullyQualifiedTypeName name="service.CommentService"/>
+<fullyQualifiedTypeName name="ajax.SearchBoardAjax"/>
+<fullyQualifiedTypeName name="ajax.GetBoard5Ajax"/>
+<fullyQualifiedTypeName name="ajax.GetBoardFiveAjax"/>
+</qualifiedTypeNameHistroy>

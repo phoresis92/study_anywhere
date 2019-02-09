@@ -141,12 +141,13 @@ function search(){
 	<div class="col-4"></div>
 	<input class="col-3" type="text" id="key">
 	<select id="constraint">
-		<option value="both">제목+내용</option>
+		<!-- <option value="both">제목+내용</option> -->
 		<option value="title">제목</option>
 		<option value="content">내용</option>
 	</select>
 	<button class="btn btn-primary col-1" onclick="search()">검색</button>
 	<button class="btn btn-primary col-1" onclick="location.href='./boardWriteForm.jsp'" >글쓰기</button>
+	
 	
 	</div>
 
@@ -202,7 +203,7 @@ function search(){
 					<c:choose>
 					<c:when test="${i eq pageInfo.page }">
 					
-					<li class="page-item active"><a class="page-link" href="#">${ i }</a></li>
+					<li class="page-item active"><a class="page-link" href="boardList.do?page=${ i }">${ i }</a></li>
 					
 					</c:when>
 					
