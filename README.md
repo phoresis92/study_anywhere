@@ -4,6 +4,8 @@
 <p>2019.01.02 - 2019.01.25(개발기간:3주)</p>
 <p>진행인원 : 3명</p>
 
+[52.79.145.202/Study_Anywhere](http://52.79.145.202/Study_Anywhere)
+
 | JDK | Java 1.8.0_191 | 
 |:------:|:------:|
 |   DBMS    |   MySQL 5.7.25    |
@@ -22,3 +24,5 @@
 ![room](./readmeImg/RoomMain.png)
 ![ERD](./readmeImg/ERD.png)
 ![function](./readmeImg/function.jpg)
+
+
