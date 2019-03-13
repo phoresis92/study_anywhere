@@ -21,4 +21,4 @@
 ![main2](./readmeImg/LobbyMain2.png)
 ![room](./readmeImg/RoomMain.png)
 ![ERD](./readmeImg/ERD.png)
-![function](./readmeImg/function.png)
+![function](./readmeImg/function.jpg)
